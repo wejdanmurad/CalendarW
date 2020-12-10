@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Calendar W</string>
+    <string name="sun">SUN</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wed">WED</string>
+    <string name="thu">THU</string>
+    <string name="fri">FRI</string>
+    <string name="date">2020 Dec</string>
+    <string name="todo">TODO</string>
+    <string name="no_events">No events</string>
+    <string name="extended_fab_label">1</string>
+    <string name="tv_note">only numbers from 1 to 9 are available</string>
+    <string name="Videos">Videos</string>
+    <string name="Photos">Photos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select">select photos</string>
+    <string name="cancel">cancel</string>
+    <string name="hide">Hide</string>
+    <string name="number">10/23</string>
+</resources>

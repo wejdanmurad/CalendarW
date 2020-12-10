@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:paddingStart="10dp"
+    android:paddingTop="20dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="10dp"
+    tools:context=".activity.MainActivity">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:fontFamily="@font/adamina"
+        android:text="@string/date"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_cal"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_dots"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_date" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:columnCount="7"
+        android:rowCount="6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_date">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@drawable/line_gray"
+            android:fontFamily="@font/adamina"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/sun"
+            android:textColor="#C7C7CA"
+            android:textSize="10sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@drawable/line_gray"
+            android:fontFamily="@font/adamina"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/mon"
+            android:textColor="#C7C7CA"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@drawable/line_gray"
+            android:fontFamily="@font/adamina"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/tue"
+            android:textColor="#C7C7CA"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@drawable/line_gray"
+            android:fontFamily="@font/adamina"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/tue"
+            android:textColor="#C7C7CA"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@drawable/line_gray"
+            android:fontFamily="@font/adamina"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/wed"
+            android:textColor="#C7C7CA"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@drawable/line_gray"
+            android:fontFamily="@font/adamina"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/thu"
+            android:textColor="#C7C7CA"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@drawable/line_gray"
+            android:fontFamily="@font/adamina"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/fri"
+            android:textColor="#C7C7CA"
+            android:textSize="10sp" />
+
+
+        <TextView
+            style="@style/grid"
+            android:text="29"
+            android:textColor="#C7C7CA" />
+
+        <TextView
+            style="@style/grid"
+            android:text="30"
+            android:textColor="#C7C7CA" />
+
+        <TextView
+            android:id="@+id/tv_1"
+            style="@style/grid"
+            android:background="@drawable/bg_gray"
+            android:text="1" />
+
+        <TextView
+            android:id="@+id/tv_2"
+            style="@style/grid"
+            android:background="@drawable/bg_gray"
+            android:text="2" />
+
+        <TextView
+            android:id="@+id/tv_3"
+            style="@style/grid"
+            android:background="@drawable/bg_gray"
+            android:text="3" />
+
+        <TextView
+            android:id="@+id/tv_4"
+            style="@style/grid"
+            android:background="@drawable/bg_gray"
+            android:text="4" />
+
+        <TextView
+            android:id="@+id/tv_5"
+            style="@style/grid"
+            android:background="@drawable/bg_gray"
+            android:text="5" />
+
+
+        <TextView
+            android:id="@+id/tv_6"
+            style="@style/grid"
+            android:background="@drawable/bg_gray"
+            android:text="6" />
+
+        <TextView
+            android:id="@+id/tv_7"
+            style="@style/grid"
+            android:background="@drawable/bg_gray"
+            android:text="7" />
+
+        <TextView
+            android:id="@+id/tv_8"
+            style="@style/grid"
+            android:background="@drawable/bg_gray"
+            android:text="8" />
+
+        <TextView
+            android:id="@+id/tv_9"
+            style="@style/grid"
+            android:background="@drawable/bg_gray"
+            android:text="9" />
+
+        <TextView
+            style="@style/grid"
+            android:text="10" />
+
+        <TextView
+            style="@style/grid"
+            android:text="11" />
+
+        <TextView
+            style="@style/grid"
+            android:text="12" />
+
+        <TextView
+            style="@style/grid"
+            android:text="13" />
+
+        <TextView
+            style="@style/grid"
+            android:text="14" />
+
+        <TextView
+            style="@style/grid"
+            android:text="15" />
+
+        <TextView
+            style="@style/grid"
+            android:text="16" />
+
+        <TextView
+            style="@style/grid"
+            android:text="17" />
+
+        <TextView
+            style="@style/grid"
+            android:text="18" />
+
+        <TextView
+            style="@style/grid"
+            android:text="19" />
+
+        <TextView
+            style="@style/grid"
+            android:text="20" />
+
+        <TextView
+            style="@style/grid"
+            android:text="21" />
+
+        <TextView
+            style="@style/grid"
+            android:text="22" />
+
+        <TextView
+            style="@style/grid"
+            android:text="23" />
+
+        <TextView
+            style="@style/grid"
+            android:text="24" />
+
+        <TextView
+            style="@style/grid"
+            android:text="25" />
+
+        <TextView
+            style="@style/grid"
+            android:text="26" />
+
+        <TextView
+            style="@style/grid"
+            android:text="27" />
+
+
+        <TextView
+            style="@style/grid"
+            android:text="28" />
+
+        <TextView
+            style="@style/grid"
+            android:text="29" />
+
+        <TextView
+            style="@style/grid"
+            android:text="30" />
+
+        <TextView
+            style="@style/grid"
+            android:fontFamily="@font/adamina"
+            android:text="31" />
+
+        <TextView
+            style="@style/grid"
+            android:text="1"
+            android:textColor="#C7C7CA" />
+
+        <TextView
+            style="@style/grid"
+            android:text="2"
+            android:textColor="#C7C7CA" />
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/tv_no_event"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_tv_noevent"
+        android:fontFamily="@font/adamina"
+        android:maxEms="1"
+        android:padding="20dp"
+        android:text="@string/no_events"
+        android:textColor="#000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/adamina"
+        android:text="@string/tv_note"
+        android:textColor="#88BDBDBD"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_no_event"
+        app:layout_constraintTop_toBottomOf="@+id/tv_no_event" />
+
+    <ImageView
+        android:id="@+id/img_del"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_no_event"
+        app:layout_constraintEnd_toEndOf="@+id/tv_no_event"
+        app:layout_constraintTop_toTopOf="@+id/tv_no_event" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="@android:color/white" />
+</androidx.constraintlayout.widget.ConstraintLayout>

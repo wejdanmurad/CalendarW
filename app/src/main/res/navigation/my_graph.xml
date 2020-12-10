@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.calendarw.home.fragments.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/photosFragment"
+        android:name="com.example.calendarw.home.fragments.photos.PhotosFragment"
+        android:label="fragment_photos"
+        tools:layout="@layout/fragment_photos" />
+    <fragment
+        android:id="@+id/videosFragment"
+        android:name="com.example.calendarw.home.fragments.videos.VideosFragment"
+        android:label="fragment_videos"
+        tools:layout="@layout/fragment_videos" />
+    <fragment
+        android:id="@+id/personalPhotosFragment"
+        android:name="com.example.calendarw.home.fragments.photos.PersonalPhotosFragment"
+        android:label="fragment_personal_photos"
+        tools:layout="@layout/fragment_personal_photos" />
+    <fragment
+        android:id="@+id/personalVideosFragment"
+        android:name="com.example.calendarw.home.fragments.videos.PersonalVideosFragment"
+        android:label="fragment_personal_videos"
+        tools:layout="@layout/fragment_personal_videos" />
+
+</navigation>
