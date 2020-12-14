@@ -1,4 +1,4 @@
-package com.example.calendarw.home.fragments.videos;
+package com.example.calendarw.fragments.videos;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.calendarw.R;
-import com.example.calendarw.home.listener.DestinationListener;
+import com.example.calendarw.listener.DestinationListener;
 
 public class VideosFragment extends Fragment {
 

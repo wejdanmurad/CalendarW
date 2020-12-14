@@ -1,4 +1,4 @@
-package com.example.calendarw.home.fragments.videos;
+package com.example.calendarw.fragments.videos;
 
 import android.os.Bundle;
 

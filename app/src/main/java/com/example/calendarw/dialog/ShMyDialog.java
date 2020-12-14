@@ -1,4 +1,4 @@
-package com.example.calendarw;
+package com.example.calendarw.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.calendarw.R;
 
 
 public class ShMyDialog extends DialogFragment {
@@ -32,11 +34,11 @@ public class ShMyDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         builder = new Dialog(requireContext());
-
+        System.out.println(" dialog is created");
         View root = requireActivity().getLayoutInflater().inflate(R.layout.sh_my_dialog, null);
         init(root);
         clicked();
-
+        System.out.println(" init is created");
         builder.setCanceledOnTouchOutside(false);
         builder.setContentView(root);
 
@@ -51,16 +53,14 @@ public class ShMyDialog extends DialogFragment {
         tv_hide.setText(s_hide);
         tv_number.setText(s_number);
         progressBar.setMax(max);
-        System.out.println(progressBar.getProgress() + " progress is initialized");
     }
 
     public void setProgress(int progressVal) {
-//        progressBar.setProgress(progressVal);
-        if (progressBar != null)
-            progressBar.setProgress(progressVal);
-        else
-            System.out.println("progress is null " + progressVal);
-        System.out.println("progress is " + progressVal);
+        progressBar.setProgress(progressVal);
+    }
+
+    public void setNumber(int numberVal) {
+        tv_number.setText(numberVal + "/" + max);
     }
 
     public void clicked() {

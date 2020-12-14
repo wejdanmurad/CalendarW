@@ -19,4 +19,7 @@
     <string name="cancel">cancel</string>
     <string name="hide">Hide</string>
     <string name="number">10/23</string>
+    <string name="unhide">Unhide</string>
+    <string name="no_photos">no photos were added</string>
+    <string name="tv_no_pics">you don\'t have any photo!</string>
 </resources>

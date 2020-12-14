@@ -5,15 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".home.fragments.photos.PhotosFragment">
+    tools:context=".fragments.photos.PhotosFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/photosRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_photo"
@@ -25,5 +38,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_photos"
         app:tint="@android:color/white" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_empty_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="empty,tv_no_photo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/empty"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="180dp"
+        android:src="@drawable/ic_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_no_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/no_photos"
+        android:textColor="@color/purple_200"
+        app:layout_constraintEnd_toEndOf="@+id/empty"
+        app:layout_constraintStart_toStartOf="@+id/empty"
+        app:layout_constraintTop_toBottomOf="@+id/empty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

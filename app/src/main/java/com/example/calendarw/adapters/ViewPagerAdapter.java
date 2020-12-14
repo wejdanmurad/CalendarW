@@ -1,4 +1,4 @@
-package com.example.calendarw.home;
+package com.example.calendarw.adapters;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

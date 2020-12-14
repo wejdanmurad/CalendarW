@@ -1,22 +1,38 @@
-package com.example.calendarw.home.fragments.photos;
+package com.example.calendarw.items;
 
-public class PhotoItem {
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "personal_photo_table")
+public class PersonalPhotoItem {
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    private int imageId;
     private String imgPathOld;
     private String imgPathNew;
     private String imgName;
     private String imgExt;
     private boolean isChecked;
 
-    public PhotoItem(String imgPathOld, String imgName, String imgExt, boolean isChecked) {
+    public PersonalPhotoItem(String imgPathOld, String imgName, String imgExt, boolean isChecked) {
         this.imgPathOld = imgPathOld;
         this.imgName = imgName;
         this.imgExt = imgExt;
         this.isChecked = isChecked;
     }
 
-    public PhotoItem() {
+    public PersonalPhotoItem() {
     }
 
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
 
     public String getImgPathOld() {
         return imgPathOld;
@@ -57,6 +73,4 @@ public class PhotoItem {
     public void setChecked(boolean checked) {
         isChecked = checked;
     }
-
-
 }

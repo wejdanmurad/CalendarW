@@ -1,4 +1,4 @@
-package com.example.calendarw.home.activity;
+package com.example.calendarw.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -6,7 +6,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Bundle;
 
-import com.example.calendarw.home.listener.DestinationListener;
+import com.example.calendarw.listener.DestinationListener;
 import com.example.calendarw.R;
 
 public class HomeActivity extends AppCompatActivity implements DestinationListener {

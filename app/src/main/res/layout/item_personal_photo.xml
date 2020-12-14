@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
 
 
     <ImageView
@@ -21,10 +21,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <View
+        android:id="@+id/shadow_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/gradient"
+        android:background="#88000000"
+        app:layout_constraintBottom_toBottomOf="@+id/item_img"
+        app:layout_constraintEnd_toEndOf="@+id/item_img"
+        app:layout_constraintStart_toStartOf="@+id/item_img"
+        app:layout_constraintTop_toTopOf="@+id/item_img" />
+
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_check"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/item_img"
         app:layout_constraintEnd_toEndOf="@+id/item_img"
         app:layout_constraintStart_toStartOf="@+id/item_img"

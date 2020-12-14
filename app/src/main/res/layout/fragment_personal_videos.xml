@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.fragments.videos.PersonalVideosFragment">
+    tools:context=".fragments.videos.PersonalVideosFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

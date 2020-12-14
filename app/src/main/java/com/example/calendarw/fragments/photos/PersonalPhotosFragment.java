@@ -1,10 +1,9 @@
-package com.example.calendarw.home.fragments.photos;
+package com.example.calendarw.fragments.photos;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,16 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.calendarw.database.DataBase;
 import com.example.calendarw.R;
-import com.example.calendarw.ShMyDialog;
+import com.example.calendarw.dialog.ShMyDialog;
+import com.example.calendarw.adapters.PersonalPhotosAdapter;
+import com.example.calendarw.database.PersonalPhotosDao;
+import com.example.calendarw.items.PersonalPhotoItem;
+
 
 import org.apache.commons.io.FileUtils;
 
@@ -35,11 +39,12 @@ import java.util.List;
 public class PersonalPhotosFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private PhotosAdapter adapter;
+    private PersonalPhotosAdapter adapter;
     private ProgressBar progressBar;
     private Button button;
-    private ShMyDialog dialog;
     private int max = 0;
+    private PersonalPhotosDao personalPhotosDao;
+    private TextView tv_no_pics;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,35 +61,31 @@ public class PersonalPhotosFragment extends Fragment {
         progressBar.setVisibility(View.INVISIBLE);
         button = view.findViewById(R.id.btn_hide);
         button.setOnClickListener(v -> {
-            max = adapter.getSelectedCount();
-            dialog = new ShMyDialog(() -> {
-                Toast.makeText(getContext(), "you clicked cancel", Toast.LENGTH_SHORT).show();
-            }, "Hide", "0/" + max, max);
-            dialog.show(getParentFragmentManager(), "personal photos hide");
             hidePhotos();
         });
-
+        tv_no_pics = view.findViewById(R.id.tv_no_pics);
+        tv_no_pics.setVisibility(View.INVISIBLE);
         return view;
     }
 
-
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        adapter = new PhotosAdapter();
+        personalPhotosDao = DataBase.getInstance(getActivity()).personalPhotosDao();
+        adapter = new PersonalPhotosAdapter();
         if (adapter.mData.isEmpty())
             progressBar.setVisibility(View.VISIBLE);
         else
             progressBar.setVisibility(View.INVISIBLE);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
         new Thread() {
             @Override
             public void run() {
                 super.run();
-                final List<PhotoItem> li = getPhotos();
+                final List<PersonalPhotoItem> li = getPhotos();
                 try {
 
                     if (getActivity() != null) {
@@ -93,10 +94,11 @@ public class PersonalPhotosFragment extends Fragment {
                             public void run() {
                                 adapter.mData = li;
                                 adapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.INVISIBLE);
                                 if (adapter.mData.isEmpty())
-                                    progressBar.setVisibility(View.VISIBLE);
+                                    tv_no_pics.setVisibility(View.VISIBLE);
                                 else
-                                    progressBar.setVisibility(View.INVISIBLE);
+                                    tv_no_pics.setVisibility(View.INVISIBLE);
                             }
                         });
                     }
@@ -107,9 +109,9 @@ public class PersonalPhotosFragment extends Fragment {
 
     }
 
-    private List<PhotoItem> getPhotos() {
+    private List<PersonalPhotoItem> getPhotos() {
 
-        List<PhotoItem> photoItemList = new ArrayList<>();
+        List<PersonalPhotoItem> photoItemList = new ArrayList<>();
 
         Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 
@@ -144,7 +146,7 @@ public class PersonalPhotosFragment extends Fragment {
             String extension = pathName.substring(pathName.lastIndexOf(".") + 1);
             String name = pathName.replace("." + extension, "");
 
-            photoItemList.add(new PhotoItem(arrPath[i], name, extension, false));
+            photoItemList.add(new PersonalPhotoItem(arrPath[i], name, extension, false));
 
             //check if data exists
 //            Log.i("PATH", arrPath[i]);
@@ -158,19 +160,47 @@ public class PersonalPhotosFragment extends Fragment {
         return photoItemList;
     }
 
-    private void hidePhotos() {
-        if (adapter != null) {
-            List<PhotoItem> selectedItems = new ArrayList<>();
-            for (PhotoItem item : adapter.mData) {
-                if (item.isChecked())
-                    copyPhotos(item);
-//                    selectedItems.add(item);
+    private List<PersonalPhotoItem> hidePhotos() {
+        List<PersonalPhotoItem> selectedItems = new ArrayList<>();
+
+        max = adapter.getSelectedCount();
+        ShMyDialog dialog = new ShMyDialog(() -> {
+            Toast.makeText(getContext(), "you clicked cancel", Toast.LENGTH_SHORT).show();
+        }, "Hide", "0/" + max, max);
+        dialog.show(getParentFragmentManager(), "personal photos hide");
+
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                if (adapter != null) {
+                    for (PersonalPhotoItem item : adapter.mData) {
+                        if (item.isChecked()) {
+                            // selectedItems.add(item);
+                            copyPhotos(item);
+                            if (getActivity() != null) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        --max;
+                                        int val = adapter.getSelectedCount() - max;
+                                        dialog.setProgress(val);
+                                        dialog.setNumber(val);
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+                getParentFragmentManager().popBackStack();
+                dialog.dismiss();
             }
-//            dialog.dismiss();
-        }
+        }.start();
+
+        return selectedItems;
     }
 
-    private void copyPhotos(PhotoItem item) {
+    private void copyPhotos(PersonalPhotoItem item) {
 
         String folder_main = "WejdanFolder";
         File f = new File(Environment.getExternalStorageDirectory(), folder_main);
@@ -180,6 +210,11 @@ public class PersonalPhotosFragment extends Fragment {
         File file;
         String path = Environment.getExternalStorageDirectory().toString();
         file = new File(path + "/WejdanFolder", item.getImgName() + ".wejdan");
+
+        // save new path
+        item.setImgPathNew(path + "/WejdanFolder/" + item.getImgName() + ".wejdan");
+        item.setChecked(false);
+//        System.out.println("new path : " + path + "/WejdanFolder" + item.getImgName() + ".wejdan");
         try {
             OutputStream stream = null;
             stream = new FileOutputStream(file);
@@ -200,8 +235,8 @@ public class PersonalPhotosFragment extends Fragment {
                 MediaStore.Images.ImageColumns.DATA + "=?", new String[]{item.getImgPathOld()});
 
 //        System.out.println(--max);
-        dialog.setProgress(--max);
 
+        // save item to db
+        personalPhotosDao.addItem(item);
     }
-
 }

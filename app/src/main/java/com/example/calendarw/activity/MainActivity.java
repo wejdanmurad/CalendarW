@@ -1,10 +1,15 @@
 package com.example.calendarw.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,12 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.calendarw.R;
-import com.example.calendarw.home.activity.HomeActivity;
 import com.example.calendarw.utils.AppConstants;
 import com.example.calendarw.utils.SharedPreferencesHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int REQUEST_CODE = 100;
     private TextView lastView, tvNoEvent;
     private ImageView imgDel;
 
@@ -31,6 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgDel = findViewById(R.id.img_del);
         imgDel.setVisibility(View.INVISIBLE);
 
+        takePermission();
+
+        setListeners();
+
+    }
+
+    private void setListeners() {
         findViewById(R.id.tv_1).setOnClickListener(this);
         findViewById(R.id.tv_2).setOnClickListener(this);
         findViewById(R.id.tv_3).setOnClickListener(this);
@@ -43,6 +55,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.img_del).setOnClickListener(this);
         findViewById(R.id.fab_add).setOnClickListener(this);
+    }
+
+    public void takePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            // TODO:here you do the job
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // here you do the job
+            }
+        }
+
 
     }
 
