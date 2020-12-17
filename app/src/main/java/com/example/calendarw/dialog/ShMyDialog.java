@@ -2,6 +2,7 @@ package com.example.calendarw.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -57,10 +58,13 @@ public class ShMyDialog extends DialogFragment {
 
     public void setProgress(int progressVal) {
         progressBar.setProgress(progressVal);
+        System.out.println("progress" + progressVal);
+        Log.d("MAX", "progress" + progressVal);
     }
 
     public void setNumber(int numberVal) {
         tv_number.setText(numberVal + "/" + max);
+        Log.d("MAX", "no of progress" + numberVal + "/" + max);
     }
 
     public void clicked() {

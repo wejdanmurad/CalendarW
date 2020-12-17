@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalendarW">
+        <activity android:name=".activity.PersonalFileActivity"></activity>
+        <activity android:name=".activity.TrialActivity"></activity>
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

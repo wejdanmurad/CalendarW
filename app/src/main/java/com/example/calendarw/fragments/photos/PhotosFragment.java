@@ -1,9 +1,8 @@
 package com.example.calendarw.fragments.photos;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.media.MediaScannerConnection;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,25 +13,22 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.example.calendarw.adapters.PhotosAdapter;
+import com.example.calendarw.activity.PersonalFileActivity;
+import com.example.calendarw.adapters.FilesAdapter;
 import com.example.calendarw.database.DataBase;
 import com.example.calendarw.R;
 
-import com.example.calendarw.database.PersonalPhotosDao;
+import com.example.calendarw.database.PersonalFilesDao;
 import com.example.calendarw.dialog.ShMyDialog;
-import com.example.calendarw.fragments.MainFragment;
-import com.example.calendarw.items.PersonalPhotoItem;
-import com.example.calendarw.listener.DestinationListener;
-import com.example.calendarw.listener.TrialListener;
+import com.example.calendarw.items.PersonalFileItem;
+import com.example.calendarw.utils.AppConstants;
 
 import org.apache.commons.io.FileUtils;
 
@@ -45,17 +41,23 @@ import java.util.List;
 
 public class PhotosFragment extends Fragment {
 
-    private DestinationListener listener;
     private RecyclerView recyclerView;
-    private PhotosAdapter adapter;
+    public final FilesAdapter adapter = new FilesAdapter(FilesAdapter.HolderConstants.PHOTO);
     private ProgressBar progressBar;
-    private PersonalPhotosDao personalPhotosDao;
+    private PersonalFilesDao filesDao;
     private Group group;
 
     private int max = 0;
+    private int init = 0;
 
     private OnItemClickListener mListener;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        showRecycler();
+        Toast.makeText(getContext(), "adapter notify success", Toast.LENGTH_SHORT).show();
+    }
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -80,7 +82,9 @@ public class PhotosFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_photos, container, false);
 
         view.findViewById(R.id.fab_photo).setOnClickListener(v -> {
-            listener.onFragmentDestination(R.id.personalPhotosFragment);
+            Intent intent = new Intent(getActivity(), PersonalFileActivity.class);
+            intent.putExtra("isPhotoFile", true);
+            startActivity(intent);
         });
         recyclerView = view.findViewById(R.id.photosRecycler);
         progressBar = view.findViewById(R.id.progress);
@@ -96,10 +100,9 @@ public class PhotosFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        personalPhotosDao = DataBase.getInstance(getActivity()).personalPhotosDao();
-        adapter = new PhotosAdapter();
+        filesDao = DataBase.getInstance(getActivity()).personalFilesDao();
+
         adapter.setOnItemClickListener(position -> {
-            Toast.makeText(getContext(), "wejdan " + position, Toast.LENGTH_SHORT).show();
             mListener.onItemClick(1);
         });
         if (adapter.mData.isEmpty())
@@ -109,11 +112,16 @@ public class PhotosFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
+        showRecycler();
+
+    }
+
+    private void showRecycler() {
         new Thread() {
             @Override
             public void run() {
                 super.run();
-                final List<PersonalPhotoItem> li = getPhotos();
+                final List<PersonalFileItem> li = getPhotos();
                 try {
 
                     if (getActivity() != null) {
@@ -135,33 +143,18 @@ public class PhotosFragment extends Fragment {
                 }
             }
         }.start();
-
-        MainFragment.setOnItemClickListener(position -> {
-            switch (position) {
-                case 1:
-                    Toast.makeText(getContext(), "case 1", Toast.LENGTH_SHORT).show();
-                    break;
-                case 2:
-                    //// TODO: 13-Dec-20 call unhide method
-                    unHidePhotos();
-                    Toast.makeText(getContext(), "case 2", Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    Toast.makeText(getContext(), "unrecognised case", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
-    private List<PersonalPhotoItem> getPhotos() {
-        List<PersonalPhotoItem> photoItems = new ArrayList<>();
-        String path = Environment.getExternalStorageDirectory().toString() + "/WejdanFolder";
+    private List<PersonalFileItem> getPhotos() {
+        List<PersonalFileItem> photoItems = new ArrayList<>();
+        String path = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.MAIN_DIR + "/" + AppConstants.PHOTO_DIR;
         System.out.println("Path: " + path);
         File directory = new File(path);
         if (directory.exists()) {
             File[] files = directory.listFiles();
             System.out.println("Size: " + files.length);
             for (int i = 0; i < files.length; i++) {
-                PersonalPhotoItem personalPhotoItem = personalPhotosDao.getItem(files[i].getAbsolutePath());
+                PersonalFileItem personalPhotoItem = filesDao.getItem(files[i].getAbsolutePath());
                 if (personalPhotoItem != null) {
                     photoItems.add(personalPhotoItem);
                 }
@@ -170,17 +163,17 @@ public class PhotosFragment extends Fragment {
         return photoItems;
     }
 
-//            System.out.println("FileName:" + files[i].getName());
+    public void back() {
+        adapter.unselectItems();
+        adapter.longClicked = false;
+        showRecycler();
+    }
 
-//            System.out.println("file path : " + files[i].getAbsolutePath());
-
-//                String imgPath = personalPhotoItem.getImgPathNew().replace(".wejdan", "." + personalPhotoItem.getImgExt());
-//                System.out.println("extintion :" + personalPhotoItem.getImgExt());
-//                System.out.println("extintion img path :" + imgPath);
-
-    private void unHidePhotos() {
-
+    public void unHidePhotos() {
+        adapter.longClicked = false;
+        List<String> exts = new ArrayList<>();
         max = adapter.getSelectedCount();
+        init = 0;
         ShMyDialog dialog = new ShMyDialog(() -> {
             Toast.makeText(getContext(), "you clicked cancel", Toast.LENGTH_SHORT).show();
         }, "Hide", "0/" + max, max);
@@ -192,18 +185,17 @@ public class PhotosFragment extends Fragment {
                 super.run();
 
                 if (adapter != null) {
-                    for (PersonalPhotoItem item : adapter.mData) {
+                    for (PersonalFileItem item : adapter.mData) {
                         if (item.isChecked()) {
-                            // selectedItems.add(item);
                             copyPhotos(item);
+                            exts.add(item.getItemExt());
                             if (getActivity() != null) {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        --max;
-                                        int val = adapter.getSelectedCount() - max;
-                                        dialog.setProgress(val);
-                                        dialog.setNumber(val);
+                                        init++;
+                                        dialog.setProgress(init);
+                                        dialog.setNumber(init);
                                     }
                                 });
                             }
@@ -212,42 +204,43 @@ public class PhotosFragment extends Fragment {
 
                 }
 
-                getParentFragmentManager().popBackStack();
+                showRecycler();
+
                 dialog.dismiss();
+                String pathname = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.CALENDAR_DIR;
+
+                String[] myArray = new String[exts.size()];
+                exts.toArray(myArray);
+
+                MediaScannerConnection.scanFile(getContext(), new String[]{pathname}, myArray, (path, uri) -> {
+                    Toast.makeText(getContext(), "you are doing great", Toast.LENGTH_SHORT).show();
+                });
+
             }
         }.start();
 
     }
 
-    private void copyPhotos(PersonalPhotoItem item) {
-        String folder_main = "unhide"; // name of the directory
-        File f = //
-                new File(Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/", // path of directory
-                        folder_main);
+    private void copyPhotos(PersonalFileItem item) {
+        File f = new File(Environment.getExternalStorageDirectory(), AppConstants.CALENDAR_DIR);
 
         if (!f.exists()) {
-            f.mkdirs(); // if the directory ( unhide) is not existed , create it
+            f.mkdirs();
         }
-//        String imgPath = item.getImgPathOld().replace(item.getImgName() + "." + item.getImgExt(), "");
 
-        String path = Environment.getExternalStorageDirectory().toString() + "/"
-                // not really sure but it brings the path to the external storage of the phone
-                + Environment.DIRECTORY_DCIM + "/" // directory in gallery
-                + "/unhide"; // the directory i want to save photos in
+        String path = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.CALENDAR_DIR;
 
-
-        File file = new File(path, //path of photo - inside (unhide) directory
-                item.getImgName() + "." //name of photo with its extension
-                        + item.getImgExt());
+        File file = new File(path, item.getItemName() + "." + item.getItemExt());
 
         // save new path
         item.setChecked(false);
+
         try {
 
             OutputStream stream = null;
             stream = new FileOutputStream(file);
-            File file1 = new File(item.getImgPathNew());
-            stream.write(FileUtils.readFileToByteArray(file1)); // copy image as a file
+            File file1 = new File(item.getItemPathNew());
+            stream.write(FileUtils.readFileToByteArray(file1));
             stream.flush();
             stream.close();
             Log.d("TAG", "copyPhotos: " + file1.getAbsolutePath());
@@ -255,29 +248,12 @@ public class PhotosFragment extends Fragment {
             e.printStackTrace();
         }
 
-        getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(path)));
-        // refresh and rescan DCIM and gallery for showing images after copying them
-
-        System.out.println(" new path sohaib hassan : " + file.getAbsolutePath());
-
-        //TODO: remove from db
-
-        // this code is for deleting the image as a file - it works
-//        File fileN = new File(item.getImgPathNew());
-//        if (fileN.exists())
-//            fileN.delete();
+        filesDao.deleteItem(item);
+        File fileN = new File(item.getItemPathNew());
+        if (fileN.exists())
+            fileN.delete();
 
 
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof DestinationListener) {
-            listener = (DestinationListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 }

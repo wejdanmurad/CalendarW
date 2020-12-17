@@ -9,29 +9,29 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.bumptech.glide.Glide;
 import com.example.calendarw.R;
-import com.example.calendarw.items.PersonalPhotoItem;
+import com.example.calendarw.items.PersonalFileItem;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.MyViewHolder> {
+public class PersonalFilesAdapter extends RecyclerView.Adapter<PersonalFilesAdapter.MyViewHolder> {
 
     Context context;
-    public List<PersonalPhotoItem> mData = new ArrayList<>();
-    public boolean longClicked = false;
-    private OnItemClickListener mListener;
+    public List<PersonalFileItem> mData = new ArrayList<>();
+    private final HolderConstants holderConstants;
 
-    public PhotosAdapter() {
+    public PersonalFilesAdapter(HolderConstants holderConstants) {
+        this.holderConstants = holderConstants;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_personal_photo, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_personal_file, parent, false);
         context = parent.getContext();
         return new MyViewHolder(view);
     }
@@ -51,7 +51,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.MyViewHold
             return -1;
         else {
             int count = 0;
-            for (PersonalPhotoItem item : mData) {
+            for (PersonalFileItem item : mData) {
                 if (item.isChecked())
                     count++;
             }
@@ -62,43 +62,38 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
+        private ImageView imagePlay;
         private ImageView imageView;
         private View view;
         private ImageView imgChecked;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            imagePlay = itemView.findViewById(R.id.play);
+
+            if (holderConstants == HolderConstants.PHOTO)
+                imagePlay.setVisibility(View.INVISIBLE);
+            else if (holderConstants == HolderConstants.VIDEO)
+                imagePlay.setVisibility(View.VISIBLE);
+
             imageView = itemView.findViewById(R.id.item_img);
             view = itemView.findViewById(R.id.shadow_view);
             imgChecked = itemView.findViewById(R.id.check);
-            imageView.setOnLongClickListener(v -> {
-                longClicked = true;
-                selectPhoto();
-                mListener.onItemClick(getAdapterPosition());
-                return false;
-            });
             imageView.setOnClickListener(v -> {
-                if (longClicked)
-                    selectPhoto();
+                int position = getAdapterPosition();
+                PersonalFileItem photoItem = mData.get(position);
+                photoItem.setChecked(!photoItem.isChecked());
+                notifyItemChanged(position);
             });
-        }
 
-        private void selectPhoto() {
-            int position = getAdapterPosition();
-            PersonalPhotoItem photoItem = mData.get(position);
-            photoItem.setChecked(!photoItem.isChecked());
-            notifyItemChanged(position);
         }
 
         public void bind(int position) {
-            PersonalPhotoItem photoItem = mData.get(position);
-            File imgFile = new File(photoItem.getImgPathNew());
-            if (imgFile.exists()) {
-//                String imgPath = photoItem.getImgPathNew().replace(".wejdan", "." + photoItem.getImgExt());
-                Glide.with(context).load(photoItem.getImgPathNew()).into(imageView);
-                System.out.println("glide path :" + photoItem.getImgPathNew());
-            }
-//                imageView.setImageURI(Uri.parse(photoItem.getImgPathNew()));
+            PersonalFileItem photoItem = mData.get(position);
+            File imgFile = new File(photoItem.getItemPathOld());
+            if (imgFile.exists())
+                Glide.with(context).load(photoItem.getItemPathOld()).into(imageView);
             if (photoItem.isChecked()) {
                 view.setVisibility(View.VISIBLE);
                 imgChecked.setVisibility(View.VISIBLE);
@@ -106,14 +101,11 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.MyViewHold
                 view.setVisibility(View.INVISIBLE);
                 imgChecked.setVisibility(View.INVISIBLE);
             }
+
         }
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mListener = listener;
+    public enum HolderConstants {
+        PHOTO, VIDEO
     }
 }
