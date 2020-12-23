@@ -19,5 +19,6 @@
     <color name="bg_grid_circle_colored">#106B6D</color>
     <color name="tv_date_gray">#3E3E3E</color>
     <color name="btn_red">#B60909</color>
+    <color name="bg_btn_gray">#B0363434</color>
 
 </resources>

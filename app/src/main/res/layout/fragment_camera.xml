@@ -5,52 +5,153 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextureView
-        android:id="@+id/view_finder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+        <androidx.camera.view.CameraView
+            android:id="@+id/view_finder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView7"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/personal_photo" />-->
+
+
+    <TextView
+        android:id="@+id/tv_Camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/Camera"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imgCapture"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_margin="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_btn_camera" />
 
     <ImageView
-        android:id="@+id/flip"
+        android:id="@+id/back_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_flip_camera_"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_Camera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_Camera"
+        app:srcCompat="@drawable/ic_arrow_back" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
+    <ImageView
+        android:id="@+id/flip_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_Camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_Camera"
+        app:srcCompat="@drawable/ic_flip_camera_" />
+
+    <ImageView
+        android:id="@+id/btnPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/ic_camera_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@android:drawable/ic_input_add"
-        app:tint="@android:color/white" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:scaleType="center"
-        android:backgroundTint="@color/white"
-        android:src="@android:drawable/ic_delete"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/bg_radius_gray"
+        android:drawableStart="@drawable/ic_btn_photo"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:text="@string/photo"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnPhoto"
+        app:layout_constraintEnd_toStartOf="@+id/btn_photo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/bg_radius_gray"
+        android:drawableStart="@drawable/ic_btn_video"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:text="@string/video"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnPhoto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_video" />
+
+    <!--    <androidx.camera.view.CameraView-->
+    <!--        android:id="@+id/view_finder"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentTop="true"-->
+    <!--        android:layout_above="@id/btnLens"/>-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnClose"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_width="96dp"-->
+    <!--        android:text="CLOSE"-->
+    <!--        android:layout_alignParentRight="true"-->
+    <!--        android:layout_above="@id/btnPhoto"/>-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnLens"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_width="96dp"-->
+    <!--        android:text="Lens"-->
+    <!--        android:layout_above="@id/btnVideo"-->
+    <!--        android:layout_centerHorizontal="true"/>-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnVideo"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_width="96dp"-->
+    <!--        android:text="VIDEO"-->
+    <!--        android:layout_toLeftOf="@id/btnStop"-->
+    <!--        android:layout_alignParentBottom="true"/>-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnStop"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_width="96dp"-->
+    <!--        android:text="STOP"-->
+    <!--        android:layout_toLeftOf="@id/btnPhoto"-->
+    <!--        android:layout_alignParentBottom="true"/>-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnPhoto"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_alignParentRight="true"-->
+    <!--        android:text="PHOTO"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_width="96dp"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

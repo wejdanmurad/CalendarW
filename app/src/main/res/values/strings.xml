@@ -33,5 +33,8 @@
     <string name="info">Info about the photos</string>
     <string name="confirm">Confirm your password</string>
     <string name="sure">SURE</string>
+    <string name="Camera">Camera</string>
+    <string name="video">Video</string>
+    <string name="photo">Photo</string>
 
 </resources>
