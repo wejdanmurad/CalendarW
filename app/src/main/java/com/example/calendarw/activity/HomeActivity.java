@@ -77,23 +77,23 @@ public class HomeActivity extends AppCompatActivity {
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
 //            toolbarTitle.setText(destination.getLabel());
-            switch (destination.getId()) {
-                case R.id.photosFragment:
-                    tabLayout.selectTab(tabLayout.getTabAt(0), true);
-                    break;
-                case R.id.cameraFragment:
-                    tabLayout.selectTab(tabLayout.getTabAt(1), true);
-                    break;
-                case R.id.videosFragment:
-                    tabLayout.selectTab(tabLayout.getTabAt(2), true);
-                    break;
-                case R.id.settingsFragment:
-                    tabLayout.selectTab(tabLayout.getTabAt(3), true);
-                    break;
-                case R.id.moreFragment:
-                    tabLayout.selectTab(tabLayout.getTabAt(4), true);
-                    break;
-            }
+//            switch (destination.getId()) {
+//                case R.id.photosFragment:
+//                    tabLayout.selectTab(tabLayout.getTabAt(0), true);
+//                    break;
+//                case R.id.cameraFragment:
+//                    tabLayout.selectTab(tabLayout.getTabAt(1), true);
+//                    break;
+//                case R.id.videosFragment:
+//                    tabLayout.selectTab(tabLayout.getTabAt(2), true);
+//                    break;
+//                case R.id.settingsFragment:
+//                    tabLayout.selectTab(tabLayout.getTabAt(3), true);
+//                    break;
+//                case R.id.moreFragment:
+//                    tabLayout.selectTab(tabLayout.getTabAt(4), true);
+//                    break;
+//            }
 
         });
 //
@@ -169,5 +169,12 @@ public class HomeActivity extends AppCompatActivity {
 ////                topLayout.setVisibility(View.VISIBLE);
 //            }
 //        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        navController.navigate(R.id.photosFragment);
+        tabLayout.selectTab(tabLayout.getTabAt(0), true);
     }
 }

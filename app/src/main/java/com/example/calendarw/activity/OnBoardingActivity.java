@@ -61,7 +61,7 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     private void move() {
         startActivity(new Intent(this, LoginActivity.class));
-
+        finish();
     }
 
 }

@@ -18,14 +18,16 @@
 
         </activity>
         <activity android:name=".activity.SplashActivity">
+
+        </activity>
+        <activity android:name=".activity.PersonalFileActivity" />
+        <activity android:name=".activity.TrialActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.PersonalFileActivity" />
-        <activity android:name=".activity.TrialActivity"></activity>
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.LoginActivity">
 

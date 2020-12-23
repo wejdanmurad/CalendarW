@@ -13,6 +13,7 @@ import com.example.calendarw.R;
 import com.example.calendarw.dialog.CompleteProfileDialog;
 import com.example.calendarw.dialog.PasswordDialog;
 import com.example.calendarw.utils.AppConstants;
+import com.example.calendarw.utils.SharedPreferencesHelper;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,12 +28,17 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(SplashActivity.this, OnBoardingActivity.class));
-                finish();
-            }
-        }, 3000);
+        if (SharedPreferencesHelper.isFirstTime(this)) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(SplashActivity.this, OnBoardingActivity.class));
+                    finish();
+                }
+            }, 3000);
+        } else {
+            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+            finish();
+        }
     }
 }
