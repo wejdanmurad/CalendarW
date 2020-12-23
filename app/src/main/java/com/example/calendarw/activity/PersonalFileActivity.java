@@ -19,7 +19,7 @@ import com.example.calendarw.R;
 import com.example.calendarw.adapters.PersonalFilesAdapter;
 import com.example.calendarw.database.DataBase;
 import com.example.calendarw.database.PersonalFilesDao;
-import com.example.calendarw.dialog.ShMyDialog;
+import com.example.calendarw.dialog.FileDialog;
 import com.example.calendarw.items.PersonalFileItem;
 import com.example.calendarw.utils.AppConstants;
 
@@ -83,7 +83,7 @@ public class PersonalFileActivity extends AppCompatActivity {
         List<PersonalFileItem> selectedItems = new ArrayList<>();
 
         max = adapter.getSelectedCount();
-        ShMyDialog dialog = new ShMyDialog(() -> {
+        FileDialog dialog = new FileDialog(() -> {
             Toast.makeText(this, "you clicked cancel", Toast.LENGTH_SHORT).show();
         }, "Hide", "0/" + max, max);
         dialog.show(getSupportFragmentManager(), "personal files hide");

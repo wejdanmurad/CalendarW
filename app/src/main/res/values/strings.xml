@@ -24,4 +24,14 @@
     <string name="tv_no_pics">you don\'t have any photo!</string>
     <string name="tv_no_vids">you don\'t have any video</string>
     <string name="no_videos">no videos were added</string>
+    <string name="tv_boarding_top">Lorem Imposed In</string>
+    <string name="tv_boarding_btm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus pulvinar lacus consequat egestas ac pellentesque vitae, nascetur libero.</string>
+    <string name="deleting">Deleting</string>
+    <string name="path">Path:</string>
+    <string name="name">name:</string>
+    <string name="ext">Extension:</string>
+    <string name="info">Info about the photos</string>
+    <string name="confirm">Confirm your password</string>
+    <string name="sure">SURE</string>
+
 </resources>

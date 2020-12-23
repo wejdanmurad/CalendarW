@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -12,15 +14,21 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalendarW">
-        <activity android:name=".activity.PersonalFileActivity"></activity>
-        <activity android:name=".activity.TrialActivity"></activity>
-        <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.OnBoardingActivity">
+
+        </activity>
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.PersonalFileActivity" />
+        <activity android:name=".activity.TrialActivity"></activity>
+        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.LoginActivity">
+
         </activity>
 
         <meta-data

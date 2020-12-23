@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.CalendarW" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/color_500</item>
+        <item name="colorPrimaryVariant">@color/color_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -19,10 +19,22 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_columnWeight">1</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingTop">25dp</item>
-        <item name="android:paddingBottom">25dp</item>
-        <item name="android:fontFamily">@font/adamina</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/tv_grid_no_gray</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="days" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textColor">@color/tv_grid_days_gray</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

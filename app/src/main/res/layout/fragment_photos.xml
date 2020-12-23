@@ -28,16 +28,16 @@
 
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_photos"
-        app:tint="@android:color/white" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab_photo"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="16dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:src="@drawable/ic_fab_photos"-->
+<!--        app:backgroundTint="@color/white"-->
+<!--        app:tint="@color/color_700"/>-->
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_empty_photo"
@@ -51,10 +51,11 @@
 
     <ImageView
         android:id="@+id/empty"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="180dp"
-        android:src="@drawable/ic_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_files_empty"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,9 +64,10 @@
         android:id="@+id/tv_no_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:text="@string/no_photos"
-        android:textColor="@color/purple_200"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/color_700"
         app:layout_constraintEnd_toEndOf="@+id/empty"
         app:layout_constraintStart_toStartOf="@+id/empty"
         app:layout_constraintTop_toBottomOf="@+id/empty" />

@@ -4,5 +4,9 @@
         <item>@font/adamina</item>
         <item>@font/alegreya_sc</item>
         <item>@font/droid_serif</item>
+        <item>@font/poppins</item>
+        <item>@font/roboto</item>
+        <item>@font/roboto_bold</item>
+        <item>@font/roboto_medium</item>
     </array>
 </resources>

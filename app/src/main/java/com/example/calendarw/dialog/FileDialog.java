@@ -1,6 +1,8 @@
 package com.example.calendarw.dialog;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import com.example.calendarw.R;
 
 
-public class ShMyDialog extends DialogFragment {
+public class FileDialog extends DialogFragment {
 
     ProgressBar progressBar;
     private Dialog builder;
@@ -23,7 +25,7 @@ public class ShMyDialog extends DialogFragment {
     private TextView tv_hide, tv_number, tv_cancel;
     private int max;
 
-    public ShMyDialog(DialogListener listener, String s_hide, String s_number, int max) {
+    public FileDialog(DialogListener listener, String s_hide, String s_number, int max) {
         this.listener = listener;
         this.s_hide = s_hide;
         this.s_number = s_number;
@@ -36,7 +38,10 @@ public class ShMyDialog extends DialogFragment {
 
         builder = new Dialog(requireContext());
         System.out.println(" dialog is created");
-        View root = requireActivity().getLayoutInflater().inflate(R.layout.sh_my_dialog, null);
+        View root = requireActivity().getLayoutInflater().inflate(R.layout.dialog_file, null);
+
+        builder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        builder.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         init(root);
         clicked();
         System.out.println(" init is created");

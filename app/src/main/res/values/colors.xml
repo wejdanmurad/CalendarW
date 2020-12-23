@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#542F92F8</color>
-    <color name="purple_500">#B52F92F8</color>
-    <color name="purple_700">#2F92F8</color>
-    <color name="teal_200">#EE2F92F8</color>
-    <color name="teal_700">#2F92F8</color>
+    <color name="color_200">#13C2C9</color>
+    <color name="color_500">#1D9093</color>
+    <color name="color_700">#128C8F</color>
+    <color name="teal_200">#13C2C9</color>
+    <color name="teal_700">#128C8F</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gray_bg">#14BDBDBD</color>
+
+    <color name="bg_gray">#D2DDDDDD</color>
     <color name="gray_no">#0F2F92F8</color>
     <color name="gray_txt">#C7C7CA</color>
-    <color name="orange">#FF9800</color>
+    <color name="tv_grid_days_gray">#BFBFBF</color>
+    <color name="tv_grid_no_gray">#3E3E3E</color>
+    <color name="tv_only_gray">#BFBFBF</color>
+    <color name="tv_boarding_gray">#615F5F</color>
+    <color name="bg_grid_no_colored">#EFF4FA</color>
+    <color name="bg_grid_circle_colored">#106B6D</color>
+    <color name="tv_date_gray">#3E3E3E</color>
+    <color name="btn_red">#B60909</color>
+
 </resources>

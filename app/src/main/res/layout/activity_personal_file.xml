@@ -6,36 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.photos.PersonalPhotosFragment">
 
-    <!--    <androidx.appcompat.widget.Toolbar-->
-    <!--        android:id="@+id/toolbar"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="?actionBarSize"-->
-    <!--        android:background="@color/purple_700"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/toolbar_title"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="center"-->
-    <!--            android:text="@string/select"-->
-    <!--            android:textColor="@color/white"-->
-    <!--            android:textSize="20sp"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="end"-->
-    <!--            -->
-    <!--            />-->
-    <!--    </androidx.appcompat.widget.Toolbar>-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/personalPhotosRecycler"
         android:layout_width="0dp"
@@ -72,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tv_no_pics"
-        android:textColor="@color/purple_200"
+        android:textColor="@color/color_200"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

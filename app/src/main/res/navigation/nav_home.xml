@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/photosFragment">
+
+    <fragment
+        android:id="@+id/photosFragment"
+        android:name="com.example.calendarw.fragments.photos.PhotosFragment"
+        android:label="fragment_photos"
+        tools:layout="@layout/fragment_photos" />
+
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.example.calendarw.fragments.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
+
+    <fragment
+        android:id="@+id/videosFragment"
+        android:name="com.example.calendarw.fragments.videos.VideosFragment"
+        android:label="fragment_videos"
+        tools:layout="@layout/fragment_videos" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.calendarw.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.example.calendarw.fragments.MoreFragment"
+        android:label="fragment_more"
+        tools:layout="@layout/fragment_more" />
+</navigation>

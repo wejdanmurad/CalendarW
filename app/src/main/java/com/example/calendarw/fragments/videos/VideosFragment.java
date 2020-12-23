@@ -1,11 +1,9 @@
 package com.example.calendarw.fragments.videos;
 
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
@@ -25,7 +23,7 @@ import com.example.calendarw.activity.PersonalFileActivity;
 import com.example.calendarw.adapters.FilesAdapter;
 import com.example.calendarw.database.DataBase;
 import com.example.calendarw.database.PersonalFilesDao;
-import com.example.calendarw.dialog.ShMyDialog;
+import com.example.calendarw.dialog.FileDialog;
 import com.example.calendarw.items.PersonalFileItem;
 import com.example.calendarw.utils.AppConstants;
 
@@ -55,7 +53,7 @@ public class VideosFragment extends Fragment {
     public void onResume() {
         super.onResume();
         showRecycler();
-        Toast.makeText(getContext(), "adapter notify success", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "adapter notify success", Toast.LENGTH_SHORT).show();
     }
 
     public interface OnItemClickListener {
@@ -83,11 +81,11 @@ public class VideosFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_videos, container, false);
-        view.findViewById(R.id.fab_video).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), PersonalFileActivity.class);
-            intent.putExtra("isPhotoFile", false);
-            startActivity(intent);
-        });
+//        view.findViewById(R.id.fab_video).setOnClickListener(v -> {
+//            Intent intent = new Intent(getActivity(), PersonalFileActivity.class);
+//            intent.putExtra("isPhotoFile", false);
+//            startActivity(intent);
+//        });
         recyclerView = view.findViewById(R.id.videosRecycler);
         progressBar = view.findViewById(R.id.progress);
         group = view.findViewById(R.id.group_empty_photo);
@@ -178,7 +176,7 @@ public class VideosFragment extends Fragment {
         List<String> exts = new ArrayList<>();
         max = adapter.getSelectedCount();
         init = 0;
-        ShMyDialog dialog = new ShMyDialog(() -> {
+        FileDialog dialog = new FileDialog(() -> {
             Toast.makeText(getContext(), "you clicked cancel", Toast.LENGTH_SHORT).show();
         }, "Hide", "0/" + max, max);
         dialog.show(getParentFragmentManager(), "personal photos hide");
