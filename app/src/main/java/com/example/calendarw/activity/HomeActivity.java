@@ -1,6 +1,8 @@
 package com.example.calendarw.activity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,12 +35,19 @@ public class HomeActivity extends AppCompatActivity {
     private TextView unHide;
     //    private ConstraintLayout topLayout;
     public NavController navController;
+    private Toolbar toolbar;
+    private TextView toolbarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbarTitle = toolbar.findViewById(R.id.tb_txt_center);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
         tabLayout = findViewById(R.id.tabs);
 
         navController = Navigation.findNavController(this, R.id.my_nav_host_fragment);
@@ -54,7 +63,8 @@ public class HomeActivity extends AppCompatActivity {
                         navController.navigate(R.id.photosFragment);
                         break;
                     case 1:
-//                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        toolbar.setVisibility(View.GONE);
+                        tabLayout.setVisibility(View.GONE);
                         navController.navigate(R.id.cameraFragment);
                         break;
                     case 2:

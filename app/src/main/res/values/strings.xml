@@ -36,5 +36,6 @@
     <string name="Camera">Camera</string>
     <string name="video">Video</string>
     <string name="photo">Photo</string>
-
+    <string name="toolbar_center">center</string>
+    <string name="toolbar_start">start</string>
 </resources>
