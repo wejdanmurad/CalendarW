@@ -6,43 +6,43 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
 
-
     <ImageView
         android:id="@+id/item_img"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
+        android:background="@drawable/img_trial"
         android:contentDescription="@string/todo"
         android:minHeight="200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_app_foreground"
+        android:src="@drawable/personal_photo"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/shadow_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#88000000"
-        app:layout_constraintBottom_toBottomOf="@+id/item_img"
-        app:layout_constraintEnd_toEndOf="@+id/item_img"
-        app:layout_constraintStart_toStartOf="@+id/item_img"
-        app:layout_constraintTop_toTopOf="@+id/item_img" />
+    <!--    <View-->
+    <!--        android:id="@+id/shadow_view"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:background="#88000000"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/item_img"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/item_img"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/item_img"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/item_img" />-->
 
-    <ImageView
-        android:id="@+id/check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/ic_check"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/item_img"
-        app:layout_constraintEnd_toEndOf="@+id/item_img"
-        app:layout_constraintStart_toStartOf="@+id/item_img"
-        app:layout_constraintTop_toTopOf="@+id/item_img" />
+    <!--    <ImageView-->
+    <!--        android:id="@+id/check"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:contentDescription="@string/todo"-->
+    <!--        android:src="@drawable/ic_check"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/item_img"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/item_img"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/item_img"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/item_img" />-->
 
     <ImageView
         android:id="@+id/play"
@@ -55,4 +55,15 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/item_img" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/bg_checkbox_selector"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

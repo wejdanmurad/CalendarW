@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
     tools:context=".fragments.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:text="@string/ResetPassword"
+        android:textColor="@color/tv_date_gray"
+        android:textSize="18sp" />
 
-</FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_finger_print"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_radius_full_gradient_colored_alpha"
+        android:drawableEnd="@drawable/ic_arrow"
+        android:drawableTint="@color/black"
+        android:fontFamily="@font/poppins"
+        android:gravity="start|center_vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/FingerPrint"
+        android:textAllCaps="false"
+        android:textColor="@color/tv_date_gray"
+        android:textSize="18sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_face_print"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_radius_full_gradient_colored_alpha"
+        android:drawableEnd="@drawable/ic_arrow"
+        android:drawableTint="@color/black"
+        android:fontFamily="@font/poppins"
+        android:gravity="start|center_vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/FacePrint"
+        android:textAllCaps="false"
+        android:textColor="@color/tv_date_gray"
+        android:textSize="18sp" />
+</LinearLayout>

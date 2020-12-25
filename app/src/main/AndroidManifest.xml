@@ -16,9 +16,12 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalendarW">
-        <activity android:name=".activity.OnBoardingActivity">
-
-        </activity>
+        <activity android:name=".activity.AppLockActivity"></activity>
+        <activity android:name=".activity.NotesActivity" />
+        <activity android:name=".activity.BreakingAlertActivity" />
+        <activity android:name=".activity.FileManagerActivity" />
+        <activity android:name=".activity.DownloadActivity" />
+        <activity android:name=".activity.OnBoardingActivity" />
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,13 +30,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.PersonalFileActivity" />
-        <activity android:name=".activity.TrialActivity">
-
-        </activity>
+        <activity android:name=".activity.TrialActivity" />
         <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.LoginActivity">
-
-        </activity>
+        <activity android:name=".activity.LoginActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

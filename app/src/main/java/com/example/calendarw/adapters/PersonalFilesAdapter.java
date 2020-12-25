@@ -78,8 +78,10 @@ public class PersonalFilesAdapter extends RecyclerView.Adapter<PersonalFilesAdap
                 imagePlay.setVisibility(View.VISIBLE);
 
             imageView = itemView.findViewById(R.id.item_img);
-            view = itemView.findViewById(R.id.shadow_view);
+            /*view = itemView.findViewById(R.id.shadow_view);
             imgChecked = itemView.findViewById(R.id.check);
+
+             */
             imageView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 PersonalFileItem photoItem = mData.get(position);

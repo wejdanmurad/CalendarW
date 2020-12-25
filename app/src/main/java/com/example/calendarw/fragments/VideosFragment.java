@@ -1,4 +1,4 @@
-package com.example.calendarw.fragments.photos;
+package com.example.calendarw.fragments;
 
 import android.content.Intent;
 import android.media.MediaScannerConnection;
@@ -18,11 +18,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.calendarw.R;
 import com.example.calendarw.activity.PersonalFileActivity;
 import com.example.calendarw.adapters.FilesAdapter;
 import com.example.calendarw.database.DataBase;
-import com.example.calendarw.R;
-
 import com.example.calendarw.database.PersonalFilesDao;
 import com.example.calendarw.dialog.FileDialog;
 import com.example.calendarw.items.PersonalFileItem;
@@ -37,12 +36,12 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhotosFragment extends Fragment {
+public class VideosFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    public final FilesAdapter adapter = new FilesAdapter(FilesAdapter.HolderConstants.PHOTO);
+    private final FilesAdapter adapter = new FilesAdapter(FilesAdapter.HolderConstants.VIDEO);
     private ProgressBar progressBar;
-    private PersonalFilesDao filesDao;
+    private PersonalFilesDao personalPhotosDao;
     private Group group;
 
     private int max = 0;
@@ -65,7 +64,11 @@ public class PhotosFragment extends Fragment {
         mListener = listener;
     }
 
-    public PhotosFragment() {
+    public static VideosFragment getInstance() {
+        return new VideosFragment();
+    }
+
+    public VideosFragment() {
     }
 
     @Override
@@ -77,14 +80,13 @@ public class PhotosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_photos, container, false);
-
-//        view.findViewById(R.id.fab_photo).setOnClickListener(v -> {
-//            Intent intent = new Intent(getActivity(), PersonalFileActivity.class);
-//            intent.putExtra("isPhotoFile", true);
-//            startActivity(intent);
-//        });
-        recyclerView = view.findViewById(R.id.photosRecycler);
+        View view = inflater.inflate(R.layout.fragment_videos, container, false);
+        view.findViewById(R.id.btn_video).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), PersonalFileActivity.class);
+            intent.putExtra("isPhotoFile", false);
+            startActivity(intent);
+        });
+        recyclerView = view.findViewById(R.id.videosRecycler);
         progressBar = view.findViewById(R.id.progress);
         group = view.findViewById(R.id.group_empty_photo);
 
@@ -98,9 +100,10 @@ public class PhotosFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        filesDao = DataBase.getInstance(getActivity()).personalFilesDao();
+        personalPhotosDao = DataBase.getInstance(getActivity()).personalFilesDao();
 
         adapter.setOnItemClickListener(position -> {
+            Toast.makeText(getContext(), "wejdan " + position, Toast.LENGTH_SHORT).show();
             mListener.onItemClick(1);
         });
         if (adapter.mData.isEmpty())
@@ -119,7 +122,7 @@ public class PhotosFragment extends Fragment {
             @Override
             public void run() {
                 super.run();
-                final List<PersonalFileItem> li = getPhotos();
+                final List<PersonalFileItem> li = getVideos();
                 try {
 
                     if (getActivity() != null) {
@@ -143,16 +146,17 @@ public class PhotosFragment extends Fragment {
         }.start();
     }
 
-    private List<PersonalFileItem> getPhotos() {
+
+    private List<PersonalFileItem> getVideos() {
         List<PersonalFileItem> photoItems = new ArrayList<>();
-        String path = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.MAIN_DIR + "/" + AppConstants.PHOTO_DIR;
+        String path = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.MAIN_DIR + "/" + AppConstants.VIDEO_DIR;
         System.out.println("Path: " + path);
         File directory = new File(path);
         if (directory.exists()) {
             File[] files = directory.listFiles();
             System.out.println("Size: " + files.length);
             for (int i = 0; i < files.length; i++) {
-                PersonalFileItem personalPhotoItem = filesDao.getItem(files[i].getAbsolutePath());
+                PersonalFileItem personalPhotoItem = personalPhotosDao.getItem(files[i].getAbsolutePath());
                 if (personalPhotoItem != null) {
                     photoItems.add(personalPhotoItem);
                 }
@@ -167,7 +171,7 @@ public class PhotosFragment extends Fragment {
         showRecycler();
     }
 
-    public void unHidePhotos() {
+    public void unHideVideos() {
         adapter.longClicked = false;
         List<String> exts = new ArrayList<>();
         max = adapter.getSelectedCount();
@@ -185,7 +189,7 @@ public class PhotosFragment extends Fragment {
                 if (adapter != null) {
                     for (PersonalFileItem item : adapter.mData) {
                         if (item.isChecked()) {
-                            copyPhotos(item);
+                            copyVideos(item);
                             exts.add(item.getItemExt());
                             if (getActivity() != null) {
                                 getActivity().runOnUiThread(new Runnable() {
@@ -219,7 +223,7 @@ public class PhotosFragment extends Fragment {
 
     }
 
-    private void copyPhotos(PersonalFileItem item) {
+    private void copyVideos(PersonalFileItem item) {
         File f = new File(Environment.getExternalStorageDirectory(), AppConstants.CALENDAR_DIR);
 
         if (!f.exists()) {
@@ -227,6 +231,7 @@ public class PhotosFragment extends Fragment {
         }
 
         String path = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.CALENDAR_DIR;
+
 
         File file = new File(path, item.getItemName() + "." + item.getItemExt());
 
@@ -238,7 +243,7 @@ public class PhotosFragment extends Fragment {
             OutputStream stream = null;
             stream = new FileOutputStream(file);
             File file1 = new File(item.getItemPathNew());
-            stream.write(FileUtils.readFileToByteArray(file1));
+            stream.write(FileUtils.readFileToByteArray(file1)); // copy image as a file
             stream.flush();
             stream.close();
             Log.d("TAG", "copyPhotos: " + file1.getAbsolutePath());
@@ -246,12 +251,12 @@ public class PhotosFragment extends Fragment {
             e.printStackTrace();
         }
 
-        filesDao.deleteItem(item);
+        personalPhotosDao.deleteItem(item);
         File fileN = new File(item.getItemPathNew());
         if (fileN.exists())
             fileN.delete();
 
-
     }
+
 
 }

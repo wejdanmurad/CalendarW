@@ -300,29 +300,18 @@
             app:layout_constraintEnd_toEndOf="@+id/tv_no_event"
             app:layout_constraintTop_toTopOf="@+id/tv_no_event" />
 
-
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/btn_sw"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="10dp"
             android:background="@drawable/gradient_oval"
             android:elevation="100dp"
+            android:src="@android:drawable/ic_input_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <ImageView
-            android:id="@+id/img_sw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="5dp"
-            android:src="@android:drawable/ic_input_add"
-            app:layout_constraintBottom_toBottomOf="@id/btn_sw"
-            app:layout_constraintEnd_toEndOf="@id/btn_sw"
-            app:layout_constraintStart_toStartOf="@id/btn_sw"
-            app:layout_constraintTop_toTopOf="@id/btn_sw"
+            app:layout_constraintStart_toStartOf="parent"
             app:tint="@android:color/white" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -73,8 +74,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MyViewHolder
 
         private ImageView imagePlay;
         private ImageView imageView;
-        private View view;
-        private ImageView imgChecked;
+        private CheckBox checkBox;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,14 +87,19 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MyViewHolder
                 imagePlay.setVisibility(View.VISIBLE);
 
             imageView = itemView.findViewById(R.id.item_img);
-            view = itemView.findViewById(R.id.shadow_view);
-            imgChecked = itemView.findViewById(R.id.check);
+            checkBox = itemView.findViewById(R.id.check_box);
+            checkBox.setVisibility(View.INVISIBLE);
+
+            if (longClicked)
+                checkBox.setVisibility(View.VISIBLE);
+
             imageView.setOnLongClickListener(v -> {
                 longClicked = true;
                 selectPhoto();
                 mListener.onItemClick(getAdapterPosition());
                 return false;
             });
+
             imageView.setOnClickListener(v -> {
                 if (longClicked)
                     selectPhoto();
@@ -114,16 +119,11 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MyViewHolder
             if (imgFile.exists()) {
 //                String imgPath = photoItem.getImgPathNew().replace(".wejdan", "." + photoItem.getImgExt());
                 Glide.with(context).load(photoItem.getItemPathNew()).into(imageView);
+                imageView.setClipToOutline(true);
                 System.out.println("glide path :" + photoItem.getItemPathNew());
             }
 //                imageView.setImageURI(Uri.parse(photoItem.getImgPathNew()));
-            if (photoItem.isChecked()) {
-                view.setVisibility(View.VISIBLE);
-                imgChecked.setVisibility(View.VISIBLE);
-            } else {
-                view.setVisibility(View.INVISIBLE);
-                imgChecked.setVisibility(View.INVISIBLE);
-            }
+            checkBox.setChecked(photoItem.isChecked());
         }
     }
 

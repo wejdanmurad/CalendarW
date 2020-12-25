@@ -49,44 +49,24 @@
         android:fontFamily="@font/roboto"
         android:gravity="center"
         android:text="@string/tv_boarding_btm"
-        android:textSize="14sp"
         android:textColor="@color/tv_boarding_gray"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="40dp"-->
-<!--            android:contentDescription="@string/todo"-->
-<!--            android:src="@drawable/ic_arrow"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:tint="@color/white" />-->
-
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageButton
         android:id="@+id/btn_sw"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/gradient_oval"
         android:elevation="100dp"
+        android:src="@drawable/ic_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@android:color/white" />
 
-
-    <ImageView
-        android:id="@+id/img_sw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="5dp"
-        android:src="@drawable/ic_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/btn_sw"
-        app:layout_constraintEnd_toEndOf="@id/btn_sw"
-        app:layout_constraintStart_toStartOf="@id/btn_sw"
-        app:layout_constraintTop_toTopOf="@id/btn_sw" />
 </androidx.constraintlayout.widget.ConstraintLayout>

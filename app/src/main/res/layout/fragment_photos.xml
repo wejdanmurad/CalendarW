@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".fragments.photos.PhotosFragment">
+    tools:context=".fragments.PhotosFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/photosRecycler"
@@ -26,19 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab_photo"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="16dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:src="@drawable/ic_fab_photos"-->
-<!--        app:backgroundTint="@color/white"-->
-<!--        app:tint="@color/color_700"/>-->
-
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_empty_photo"
         android:layout_width="wrap_content"
@@ -53,8 +40,8 @@
         android:id="@+id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_files_empty"
         android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_files_empty"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,11 +52,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="@string/no_photos"
         android:fontFamily="@font/poppins"
+        android:text="@string/no_photos"
         android:textColor="@color/color_700"
         app:layout_constraintEnd_toEndOf="@+id/empty"
         app:layout_constraintStart_toStartOf="@+id/empty"
         app:layout_constraintTop_toBottomOf="@+id/empty" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_radius_red"
+        android:fontFamily="@font/poppins"
+        android:text="@string/HidePhotos"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:minHeight="0dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
