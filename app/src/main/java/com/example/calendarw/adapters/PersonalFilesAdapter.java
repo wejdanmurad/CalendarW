@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,17 +62,33 @@ public class PersonalFilesAdapter extends RecyclerView.Adapter<PersonalFilesAdap
 
     }
 
+    public void unSelectAll() {
+        if (!mData.isEmpty()) {
+            for (PersonalFileItem item : mData) {
+                item.setChecked(false);
+            }
+        }
+    }
+
+    public void selectAll() {
+        if (!mData.isEmpty()) {
+            for (PersonalFileItem item : mData) {
+                item.setChecked(true);
+            }
+        }
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imagePlay;
         private ImageView imageView;
-        private View view;
-        private ImageView imgChecked;
+        private CheckBox checkBox;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imagePlay = itemView.findViewById(R.id.play);
+            checkBox = itemView.findViewById(R.id.check_box);
 
             if (holderConstants == HolderConstants.PHOTO)
                 imagePlay.setVisibility(View.INVISIBLE);
@@ -78,17 +96,21 @@ public class PersonalFilesAdapter extends RecyclerView.Adapter<PersonalFilesAdap
                 imagePlay.setVisibility(View.VISIBLE);
 
             imageView = itemView.findViewById(R.id.item_img);
-            /*view = itemView.findViewById(R.id.shadow_view);
-            imgChecked = itemView.findViewById(R.id.check);
 
-             */
             imageView.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                PersonalFileItem photoItem = mData.get(position);
-                photoItem.setChecked(!photoItem.isChecked());
-                notifyItemChanged(position);
+                selectPhoto();
             });
 
+            checkBox.setOnClickListener(v -> {
+                selectPhoto();
+            });
+        }
+
+        private void selectPhoto() {
+            int position = getAdapterPosition();
+            PersonalFileItem photoItem = mData.get(position);
+            photoItem.setChecked(!photoItem.isChecked());
+            notifyItemChanged(position);
         }
 
         public void bind(int position) {
@@ -96,13 +118,7 @@ public class PersonalFilesAdapter extends RecyclerView.Adapter<PersonalFilesAdap
             File imgFile = new File(photoItem.getItemPathOld());
             if (imgFile.exists())
                 Glide.with(context).load(photoItem.getItemPathOld()).into(imageView);
-            if (photoItem.isChecked()) {
-                view.setVisibility(View.VISIBLE);
-                imgChecked.setVisibility(View.VISIBLE);
-            } else {
-                view.setVisibility(View.INVISIBLE);
-                imgChecked.setVisibility(View.INVISIBLE);
-            }
+            checkBox.setChecked(photoItem.isChecked());
 
         }
     }

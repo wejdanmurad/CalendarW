@@ -104,6 +104,10 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MyViewHolder
                 if (longClicked)
                     selectPhoto();
             });
+
+            checkBox.setOnClickListener(v -> {
+                selectPhoto();
+            });
         }
 
         private void selectPhoto() {

@@ -9,8 +9,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,9 +41,12 @@ public class PersonalFileActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button button;
     private int max = 0;
+    private int init = 0;
     private PersonalFilesDao personalPhotosDao;
     private TextView tv_no_pics;
     private Boolean isPhotoFile;
+    private CheckBox checkBox;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,12 @@ public class PersonalFileActivity extends AppCompatActivity {
     }
 
     private void init() {
+        checkBox = findViewById(R.id.check_all);
+        TextView title = findViewById(R.id.tb_txt_start);
+        if (isPhotoFile)
+            title.setText(getResources().getString(R.string.select_photos));
+        else
+            title.setText(getResources().getString(R.string.select_videos));
         recyclerView = findViewById(R.id.personalPhotosRecycler);
         progressBar = findViewById(R.id.progress);
         progressBar.setVisibility(View.INVISIBLE);
@@ -74,9 +85,26 @@ public class PersonalFileActivity extends AppCompatActivity {
         else
             progressBar.setVisibility(View.INVISIBLE);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
         showRecycler();
+
+        checkBox.setOnClickListener(v -> {
+            if (checkBox.isChecked())
+                selectAll();
+            else
+                unSelectAll();
+        });
+    }
+
+    private void unSelectAll() {
+        adapter.unSelectAll();
+        adapter.notifyDataSetChanged();
+    }
+
+    private void selectAll() {
+        adapter.selectAll();
+        adapter.notifyDataSetChanged();
     }
 
     private List<PersonalFileItem> hidePhotos() {
@@ -101,10 +129,9 @@ public class PersonalFileActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        --max;
-                                        int val = adapter.getSelectedCount() - max;
-                                        dialog.setProgress(val);
-                                        dialog.setNumber(val);
+                                        init++;
+                                        dialog.setProgress(init);
+                                        dialog.setNumber(init);
                                     }
                                 });
                             }

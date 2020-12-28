@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.calendarw.R;
+import com.example.calendarw.activity.HomeActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -60,6 +61,7 @@ public class CameraFragment extends Fragment {
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA",
             "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.RECORD_AUDIO"};
 
+    public static OnItemClickListener mListener;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -72,17 +74,24 @@ public class CameraFragment extends Fragment {
         }
 
     }
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
+    public static void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+//        btnPhoto
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
         btnPhoto = view.findViewById(R.id.btn_photo);
         btnVideo = view.findViewById(R.id.btn_video);
-        btnStop = view.findViewById(R.id.back_camera);
+        btnStop = view.findViewById(R.id.btnPhoto);
         btnLens = view.findViewById(R.id.flip_camera);
-        btnClose = view.findViewById(R.id.btnPhoto);
+        btnClose = view.findViewById(R.id.back_camera);
         mCameraView = view.findViewById(R.id.view_finder);
         return view;
     }
@@ -186,7 +195,8 @@ public class CameraFragment extends Fragment {
                 if (mCameraView.isRecording()) {
                     mCameraView.stopRecording();
                 }
-//                finish();
+                Toast.makeText(getActivity(), "pop back", Toast.LENGTH_SHORT).show();
+                mListener.onItemClick(1);
             }
         });// on click listener end
 

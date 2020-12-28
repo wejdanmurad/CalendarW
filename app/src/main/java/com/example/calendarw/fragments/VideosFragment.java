@@ -15,10 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.calendarw.R;
+import com.example.calendarw.activity.HomeActivity;
 import com.example.calendarw.activity.PersonalFileActivity;
 import com.example.calendarw.adapters.FilesAdapter;
 import com.example.calendarw.database.DataBase;
@@ -39,7 +43,7 @@ import java.util.List;
 public class VideosFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private final FilesAdapter adapter = new FilesAdapter(FilesAdapter.HolderConstants.VIDEO);
+    public final FilesAdapter adapter = new FilesAdapter(FilesAdapter.HolderConstants.VIDEO);
     private ProgressBar progressBar;
     private PersonalFilesDao personalPhotosDao;
     private Group group;
@@ -47,7 +51,14 @@ public class VideosFragment extends Fragment {
     private int max = 0;
     private int init = 0;
 
+    public static boolean isEditing = false;
+
     private OnItemClickListener mListener;
+
+    private ImageButton tb_edit;
+
+    private Button btn;
+    private boolean isHide = true;
 
     @Override
     public void onResume() {
@@ -81,11 +92,8 @@ public class VideosFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_videos, container, false);
-        view.findViewById(R.id.btn_video).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), PersonalFileActivity.class);
-            intent.putExtra("isPhotoFile", false);
-            startActivity(intent);
-        });
+        btn = view.findViewById(R.id.btn_video);
+
         recyclerView = view.findViewById(R.id.videosRecycler);
         progressBar = view.findViewById(R.id.progress);
         group = view.findViewById(R.id.group_empty_photo);
@@ -93,6 +101,7 @@ public class VideosFragment extends Fragment {
         progressBar.setVisibility(View.INVISIBLE);
         group.setVisibility(View.INVISIBLE);
 
+        tb_edit = view.findViewById(R.id.tb_edit);
         return view;
     }
 
@@ -103,18 +112,56 @@ public class VideosFragment extends Fragment {
         personalPhotosDao = DataBase.getInstance(getActivity()).personalFilesDao();
 
         adapter.setOnItemClickListener(position -> {
-            Toast.makeText(getContext(), "wejdan " + position, Toast.LENGTH_SHORT).show();
-            mListener.onItemClick(1);
+//            Toast.makeText(getContext(), "wejdan " + position, Toast.LENGTH_SHORT).show();
+//            mListener.onItemClick(1);
+            editVideos();
+            changeBtn(false, R.drawable.bg_radius_color, R.string.unhide);
         });
         if (adapter.mData.isEmpty())
             progressBar.setVisibility(View.VISIBLE);
         else
             progressBar.setVisibility(View.INVISIBLE);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         showRecycler();
 
+        tb_edit.setOnClickListener(v -> {
+            if (adapter.longClicked)
+                back();
+            else {
+                adapter.longClicked = true;
+                editVideos();
+            }
+        });
+
+        HomeActivity.setOnItemClickListener(position -> {
+            if (position == 2)
+                back();
+        });
+
+        btn.setOnClickListener(v -> {
+            if (isHide) {
+                Intent intent = new Intent(getActivity(), PersonalFileActivity.class);
+                intent.putExtra("isPhotoFile", false);
+                startActivity(intent);
+            } else {
+                unHideVideos();
+            }
+        });
+    }
+
+    private void changeBtn(boolean b, int bg_color, int txt) {
+        isHide = b;
+        btn.setBackground(getResources().getDrawable(bg_color, getResources().newTheme()));
+        btn.setText(getResources().getString(txt));
+    }
+
+    public void editVideos() {
+        changeBtn(false, R.drawable.bg_radius_color, R.string.unhide);
+        isEditing = true;
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
     }
 
     private void showRecycler() {
@@ -130,7 +177,8 @@ public class VideosFragment extends Fragment {
                             @Override
                             public void run() {
                                 adapter.mData = li;
-                                adapter.notifyDataSetChanged();
+                                recyclerView.setAdapter(adapter);
+                                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
                                 progressBar.setVisibility(View.INVISIBLE);
                                 if (adapter.mData.isEmpty())
                                     group.setVisibility(View.VISIBLE);
@@ -166,6 +214,8 @@ public class VideosFragment extends Fragment {
     }
 
     public void back() {
+        isEditing = false;
+        changeBtn(true, R.drawable.bg_radius_red, R.string.HideVideos);
         adapter.unselectItems();
         adapter.longClicked = false;
         showRecycler();
@@ -217,6 +267,8 @@ public class VideosFragment extends Fragment {
                 MediaScannerConnection.scanFile(getContext(), new String[]{pathname}, myArray, (path, uri) -> {
                     Toast.makeText(getContext(), "you are doing great", Toast.LENGTH_SHORT).show();
                 });
+
+                changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
 
             }
         }.start();

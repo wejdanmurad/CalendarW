@@ -1,18 +1,18 @@
 package com.example.calendarw.activity;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.calendarw.fragments.CameraFragment;
 import com.example.calendarw.fragments.PhotosFragment;
 import com.example.calendarw.fragments.VideosFragment;
 import com.example.calendarw.R;
@@ -22,33 +22,25 @@ public class HomeActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private PhotosFragment photosFragment;
-    private VideosFragment videosFragment;
     private ImageView back;
     private TextView unHide;
     //    private ConstraintLayout topLayout;
     public NavController navController;
-    private Toolbar toolbar;
-    private TextView tb_txt;
-    private ImageView tb_edit;
+
+    NavHostFragment navHostFragment;
+    private boolean isPhotoFragment = true;
+    private boolean isVideoFragment = false;
+
+    public static OnItemClickListener mListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        tb_txt = toolbar.findViewById(R.id.tb_txt_start);
-        tb_edit = toolbar.findViewById(R.id.tb_edit);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-
         tabLayout = findViewById(R.id.tabs);
 
         navController = Navigation.findNavController(this, R.id.my_nav_host_fragment);
-//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -56,31 +48,29 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (tab.getPosition()) {
                     case 0:
-                        showViews();
+                        navController.popBackStack();
                         navController.navigate(R.id.photosFragment);
-                        tb_txt.setText(getResources().getString(R.string.photos));
+                        tabLayout.setVisibility(View.VISIBLE);
                         break;
                     case 1:
-                        toolbar.setVisibility(View.GONE);
-                        tabLayout.setVisibility(View.GONE);
+                        navController.popBackStack();
                         navController.navigate(R.id.cameraFragment);
+                        tabLayout.setVisibility(View.GONE);
                         break;
                     case 2:
-                        showViews();
+                        navController.popBackStack();
                         navController.navigate(R.id.videosFragment);
-                        tb_txt.setText(getResources().getString(R.string.videos));
+                        tabLayout.setVisibility(View.VISIBLE);
                         break;
                     case 3:
-                        showViews();
+                        navController.popBackStack();
                         navController.navigate(R.id.settingsFragment);
-                        tb_txt.setText(getResources().getString(R.string.settings));
-                        tb_edit.setVisibility(View.INVISIBLE);
+                        tabLayout.setVisibility(View.VISIBLE);
                         break;
                     case 4:
-                        showViews();
+                        navController.popBackStack();
                         navController.navigate(R.id.moreFragment);
-                        tb_txt.setText(getResources().getString(R.string.hideme));
-                        tb_edit.setVisibility(View.INVISIBLE);
+                        tabLayout.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -96,8 +86,24 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        CameraFragment.setOnItemClickListener(position -> {
+            goBack();
+        });
+
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.photosFragment) {
+                isPhotoFragment = true;
+                isVideoFragment = false;
+            } else if (destination.getId() == R.id.videosFragment) {
+                isPhotoFragment = false;
+                isVideoFragment = true;
+            } else {
+                isPhotoFragment = false;
+                isVideoFragment = false;
+            }
+
+
 //            toolbarTitle.setText(destination.getLabel());
 //            switch (destination.getId()) {
 //                case R.id.photosFragment:
@@ -195,17 +201,35 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        if (PhotosFragment.isEditing)
-            Toast.makeText(this, "wejdan", Toast.LENGTH_SHORT).show();
+        if (isPhotoFragment) {
+            Log.d("isediting", "onBackPressed: " + PhotosFragment.isEditing);
+            if (PhotosFragment.isEditing) {
+                mListener.onItemClick(1);
+            } else {
+                super.onBackPressed();
+            }
 
-        showViews();
+        } else if (isVideoFragment && VideosFragment.isEditing)
+            mListener.onItemClick(2);
+        else {
+            goBack();
+        }
+
+    }
+
+    private void goBack() {
+        tabLayout.setVisibility(View.VISIBLE);
+        navController.popBackStack();
         navController.navigate(R.id.photosFragment);
         tabLayout.selectTab(tabLayout.getTabAt(0), true);
     }
 
-    void showViews() {
-        toolbar.setVisibility(View.VISIBLE);
-        tabLayout.setVisibility(View.VISIBLE);
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public static void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
     }
 }

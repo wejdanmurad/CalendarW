@@ -6,72 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.HomeActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@drawable/bg_radius_btm_gradient_colored"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tb_txt_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="@string/toolbar_start"
-            android:textColor="@color/white"
-            android:fontFamily="@font/poppins"
-            android:textSize="24sp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/tb_txt_center"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text="@string/toolbar_center"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:fontFamily="@font/poppins"-->
-<!--            android:textSize="24sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-
-<!--        <ImageView-->
-<!--            android:id="@+id/tb_back"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/ic_arrow_back"-->
-<!--            android:layout_gravity="start"-->
-<!--            />-->
-
-        <ImageView
-            android:id="@+id/tb_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit"
-            android:layout_gravity="end"
-            android:layout_margin="15dp"
-            />
-
-
-        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            -->
-<!--            >-->
-<!--            -->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-    </androidx.appcompat.widget.Toolbar>
-
     <fragment
         android:id="@+id/my_nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -81,7 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tabs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_home" />
 
     <com.google.android.material.tabs.TabLayout

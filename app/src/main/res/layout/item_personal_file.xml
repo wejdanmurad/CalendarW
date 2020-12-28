@@ -60,7 +60,7 @@
         android:id="@+id/check_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/bg_checkbox_selector"
+        android:button="@drawable/selector_checkbox_file_item"
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:layout_margin="10dp"

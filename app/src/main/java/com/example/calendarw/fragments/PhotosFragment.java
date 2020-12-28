@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
@@ -15,9 +16,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.calendarw.activity.HomeActivity;
 import com.example.calendarw.activity.PersonalFileActivity;
 import com.example.calendarw.adapters.FilesAdapter;
 import com.example.calendarw.database.DataBase;
@@ -51,6 +56,10 @@ public class PhotosFragment extends Fragment {
 
     private OnItemClickListener mListener;
 
+    private ImageButton tb_edit;
+    private Button btn;
+    private boolean isHide = true;
+
     @Override
     public void onResume() {
         super.onResume();
@@ -80,17 +89,16 @@ public class PhotosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_photos, container, false);
 
-        view.findViewById(R.id.btn_photo).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), PersonalFileActivity.class);
-            intent.putExtra("isPhotoFile", true);
-            startActivity(intent);
-        });
+        btn = view.findViewById(R.id.btn_photo);
+
         recyclerView = view.findViewById(R.id.photosRecycler);
         progressBar = view.findViewById(R.id.progress);
         group = view.findViewById(R.id.group_empty_photo);
 
         progressBar.setVisibility(View.INVISIBLE);
         group.setVisibility(View.INVISIBLE);
+
+        tb_edit = view.findViewById(R.id.tb_edit);
 
         return view;
     }
@@ -103,9 +111,8 @@ public class PhotosFragment extends Fragment {
 
         adapter.setOnItemClickListener(position -> {
 //            mListener.onItemClick(1);
-            isEditing = true;
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            editPhotos();
+            changeBtn(false, R.drawable.bg_radius_color, R.string.unhide);
         });
         if (adapter.mData.isEmpty())
             progressBar.setVisibility(View.VISIBLE);
@@ -116,6 +123,43 @@ public class PhotosFragment extends Fragment {
 
         showRecycler();
 
+        tb_edit.setOnClickListener(v -> {
+            if (adapter.longClicked)
+                back();
+            else {
+                adapter.longClicked = true;
+                editPhotos();
+            }
+        });
+
+        HomeActivity.setOnItemClickListener(position -> {
+            if (position == 1)
+                back();
+        });
+
+        btn.setOnClickListener(v -> {
+            if (isHide) {
+                Intent intent = new Intent(getActivity(), PersonalFileActivity.class);
+                intent.putExtra("isPhotoFile", true);
+                startActivity(intent);
+            } else {
+                unHidePhotos();
+            }
+        });
+
+    }
+
+    private void changeBtn(boolean b, int bg_color, int txt) {
+        isHide = b;
+        btn.setBackground(getResources().getDrawable(bg_color, getResources().newTheme()));
+        btn.setText(getResources().getString(txt));
+    }
+
+    public void editPhotos() {
+        changeBtn(false, R.drawable.bg_radius_color, R.string.unhide);
+        isEditing = true;
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
     }
 
     private void showRecycler() {
@@ -131,7 +175,8 @@ public class PhotosFragment extends Fragment {
                             @Override
                             public void run() {
                                 adapter.mData = li;
-                                adapter.notifyDataSetChanged();
+                                recyclerView.setAdapter(adapter);
+                                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
                                 progressBar.setVisibility(View.INVISIBLE);
                                 if (adapter.mData.isEmpty())
                                     group.setVisibility(View.VISIBLE);
@@ -166,6 +211,8 @@ public class PhotosFragment extends Fragment {
     }
 
     public void back() {
+        isEditing = false;
+        changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
         adapter.unselectItems();
         adapter.longClicked = false;
         showRecycler();
@@ -217,6 +264,8 @@ public class PhotosFragment extends Fragment {
                 MediaScannerConnection.scanFile(getContext(), new String[]{pathname}, myArray, (path, uri) -> {
                     Toast.makeText(getContext(), "you are doing great", Toast.LENGTH_SHORT).show();
                 });
+
+                changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
 
             }
         }.start();

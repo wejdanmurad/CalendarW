@@ -53,6 +53,8 @@
     <string name="add_link">Click on add icon at the top to search for links.</string>
     <string name="HidePhotos">Hide Photos</string>
     <string name="HideVideos">Hide Videos</string>
+    <string name="select_photos">Select Photos</string>
+    <string name="select_videos">Select Videos</string>
 
 
 </resources>
