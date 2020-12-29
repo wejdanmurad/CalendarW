@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalendarW">
-        <activity android:name=".activity.AppLockActivity"></activity>
+        <activity android:name=".activity.PersonalAudioActivity"></activity>
+        <activity android:name=".activity.AudioActivity" />
+        <activity android:name=".activity.AppLockActivity" />
         <activity android:name=".activity.NotesActivity" />
         <activity android:name=".activity.BreakingAlertActivity" />
         <activity android:name=".activity.FileManagerActivity" />
@@ -30,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.PersonalFileActivity" />
-        <activity android:name=".activity.TrialActivity" />
+        <activity android:name=".activity.TrialActivity"></activity>
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.LoginActivity" />
 

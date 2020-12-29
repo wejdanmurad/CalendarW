@@ -10,7 +10,7 @@ import com.example.calendarw.items.PersonalFileItem;
 
 @Database(entities = {PersonalFileItem.class}, version = 1, exportSchema = false)
 public abstract class DataBase extends RoomDatabase {
-    private static final String DATABASE_NAME = "db_Calender";
+    private static final String DATABASE_NAME = "Calender";
     private static DataBase sInstance;
 
     public static DataBase getInstance(Context context) {

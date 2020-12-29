@@ -2,6 +2,7 @@ package com.example.calendarw.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
@@ -23,6 +24,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -39,8 +41,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.calendarw.R;
 import com.example.calendarw.items.PersonalFileItem;
 import com.example.calendarw.utils.AppConstants;
@@ -59,31 +63,35 @@ import java.util.concurrent.Executors;
 
 public class TrialActivity extends AppCompatActivity {
 
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trial);
 
+        getPhotos();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
     private void getPhotos() {
 
         Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 
         Cursor cursor;
 
-        final String[] columns = {MediaStore.Audio.Media.DATA, MediaStore.Audio.Media._ID};
+        final String[] columns = {MediaStore.Audio.Media.DATA, MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DISPLAY_NAME , MediaStore.Audio.Media.ARTIST};
         final String orderBy = MediaStore.Audio.Media._ID;
 
         //Stores all the images from the gallery in Cursor
 
         if (isSDPresent) {
             cursor = getContentResolver().query(
-                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, columns, null,
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, columns, MediaStore.Audio.Media.IS_MUSIC,
                     null, orderBy);
         } else {
             cursor = getContentResolver().query(
-                    MediaStore.Audio.Media.INTERNAL_CONTENT_URI, columns, null,
+                    MediaStore.Audio.Media.INTERNAL_CONTENT_URI, columns, MediaStore.Audio.Media.IS_MUSIC,
                     null, orderBy);
         }
 
@@ -96,15 +104,17 @@ public class TrialActivity extends AppCompatActivity {
         for (int i = 0; i < count; i++) {
             cursor.moveToPosition(i);
             int dataColumnIndex = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+            int nameIndex = cursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME);
+            int artistIndex = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
 
-            //Store the path of the image
-            arrPath[i] = cursor.getString(dataColumnIndex);
-            String pathName = arrPath[i].substring(arrPath[i].lastIndexOf("/") + 1);
-            String extension = pathName.substring(pathName.lastIndexOf(".") + 1);
-            String name = pathName.replace("." + extension, "");
+//            //Store the path of the image
+//            arrPath[i] = cursor.getString(dataColumnIndex);
+//            String test = cursor.getString(nameIndex);
+//            String pathName = arrPath[i].substring(arrPath[i].lastIndexOf("/") + 1);
 
-            Log.d("audio" + i, "" + arrPath[i]);
-            System.out.println("audio " + i + arrPath[i]);
+            Log.d("trialaudiowejdan", "name " + cursor.getString(artistIndex));
+//            Log.d("audiowejdan", "" + arrPath[i]);
+//            System.out.println("audio " + i + arrPath[i]);
         }
 
         // The cursor should be freed up after use with close()

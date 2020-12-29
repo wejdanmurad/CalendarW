@@ -26,10 +26,6 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MyViewHolder
     private OnItemClickListener mListener;
     private final HolderConstants holderConstants;
 
-    public FilesAdapter(HolderConstants holderConstants) {
-        this.holderConstants = holderConstants;
-    }
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -135,11 +131,18 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MyViewHolder
         void onItemClick(int position);
     }
 
+    public enum HolderConstants {
+        PHOTO, VIDEO
+    }
+
+
+    public FilesAdapter(HolderConstants holderConstants) {
+        this.holderConstants = holderConstants;
+    }
+
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
 
-    public enum HolderConstants {
-        PHOTO, VIDEO
-    }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ public class FileManagerActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView tb_txt;
-    private ImageButton tb_back;
+    private ImageButton tb_back, btn_audio, btn_others;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,11 @@ public class FileManagerActivity extends AppCompatActivity {
         tb_txt.setText(getResources().getString(R.string.FileManager));
         tb_back.setOnClickListener(v -> {
             this.finish();
+        });
+
+        btn_audio = findViewById(R.id.audio);
+        btn_audio.setOnClickListener(v -> {
+            startActivity(new Intent(this, AudioActivity.class));
         });
 
     }

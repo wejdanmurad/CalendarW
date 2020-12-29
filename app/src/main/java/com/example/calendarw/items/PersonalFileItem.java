@@ -15,6 +15,7 @@ public class PersonalFileItem {
     private String itemName;
     private String itemExt;
     private boolean isChecked;
+    private String itemArtist;
 
     public PersonalFileItem(String imgPathOld, String imgName, String imgExt, boolean isChecked) {
         this.itemPathOld = imgPathOld;
@@ -24,6 +25,14 @@ public class PersonalFileItem {
     }
 
     public PersonalFileItem() {
+    }
+
+    public PersonalFileItem(String imgPathOld, String imgName, String artist, String imgExt, boolean isChecked) {
+        this.itemPathOld = imgPathOld;
+        this.itemName = imgName;
+        this.itemExt = imgExt;
+        this.isChecked = isChecked;
+        this.itemArtist = artist;
     }
 
     public int getItemId() {
@@ -72,5 +81,13 @@ public class PersonalFileItem {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+    public String getItemArtist() {
+        return itemArtist;
+    }
+
+    public void setItemArtist(String itemArtist) {
+        this.itemArtist = itemArtist;
     }
 }

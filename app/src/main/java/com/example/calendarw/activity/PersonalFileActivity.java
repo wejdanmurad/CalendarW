@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -107,9 +106,7 @@ public class PersonalFileActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private List<PersonalFileItem> hidePhotos() {
-        List<PersonalFileItem> selectedItems = new ArrayList<>();
-
+    private void hidePhotos() {
         max = adapter.getSelectedCount();
         FileDialog dialog = new FileDialog(() -> {
             Toast.makeText(this, "you clicked cancel", Toast.LENGTH_SHORT).show();
@@ -144,7 +141,6 @@ public class PersonalFileActivity extends AppCompatActivity {
             }
         }.start();
 
-        return selectedItems;
     }
 
     private void copyPhotos(PersonalFileItem item) {

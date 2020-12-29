@@ -22,7 +22,7 @@
     <string name="unhide">Unhide</string>
     <string name="no_photos">no photos were added</string>
     <string name="tv_no_pics">you don\'t have any photo!</string>
-    <string name="tv_no_vids">you don\'t have any video</string>
+    <string name="tv_no_vids">you don\'t have any video!</string>
     <string name="no_videos">no videos were added</string>
     <string name="tv_boarding_top">Lorem Imposed In</string>
     <string name="tv_boarding_btm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus pulvinar lacus consequat egestas ac pellentesque vitae, nascetur libero.</string>
@@ -55,6 +55,11 @@
     <string name="HideVideos">Hide Videos</string>
     <string name="select_photos">Select Photos</string>
     <string name="select_videos">Select Videos</string>
-
+    <string name="OtherFiles">Other files</string>
+    <string name="Audio">Audio</string>
+    <string name="no_audio">no audio files were added</string>
+    <string name="HideAudio">Hide Audio</string>
+    <string name="select_audio">Select Audio</string>
+    <string name="tv_no_audio">you don\'t have any audio!</string>
 
 </resources>

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
@@ -18,16 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.calendarw.activity.HomeActivity;
 import com.example.calendarw.activity.PersonalFileActivity;
 import com.example.calendarw.adapters.FilesAdapter;
-import com.example.calendarw.database.DataBase;
 import com.example.calendarw.R;
 
+import com.example.calendarw.database.DataBase;
 import com.example.calendarw.database.PersonalFilesDao;
 import com.example.calendarw.dialog.FileDialog;
 import com.example.calendarw.items.PersonalFileItem;
@@ -94,11 +92,10 @@ public class PhotosFragment extends Fragment {
         recyclerView = view.findViewById(R.id.photosRecycler);
         progressBar = view.findViewById(R.id.progress);
         group = view.findViewById(R.id.group_empty_photo);
+        tb_edit = view.findViewById(R.id.tb_edit);
 
         progressBar.setVisibility(View.INVISIBLE);
         group.setVisibility(View.INVISIBLE);
-
-        tb_edit = view.findViewById(R.id.tb_edit);
 
         return view;
     }
