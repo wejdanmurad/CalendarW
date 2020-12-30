@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activity.AddNoteActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_radius_full_yellow"
+        android:fontFamily="@font/poppins"
+        android:padding="12dp"
+        android:text="Title"
+        android:textColor="@color/tv_date_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_subject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_radius_full_yellow_dark"
+        android:fontFamily="@font/poppins"
+        android:hint="@string/subjecthint"
+        android:lines="15"
+        android:padding="12dp"
+        android:textColor="@color/tv_date_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_radius_red"
+            android:textColor="@color/white"
+            android:drawableStart="@drawable/ic_delete_btn"
+            android:paddingStart="30dp"
+            android:paddingTop="13dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="13dp"
+            android:drawablePadding="8dp"
+            android:text="@string/delete"
+            android:fontFamily="@font/poppins"
+            android:textAllCaps="false"
+            android:textSize="16sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_radius_color"
+            android:textColor="@color/white"
+            android:drawableStart="@drawable/ic_save_btn"
+            android:paddingStart="30dp"
+            android:paddingTop="13dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="13dp"
+            android:drawablePadding="8dp"
+            android:text="@string/save"
+            android:fontFamily="@font/poppins"
+            android:textAllCaps="false"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

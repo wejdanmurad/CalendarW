@@ -221,57 +221,60 @@ public class VideosFragment extends Fragment {
     }
 
     public void unHideVideos() {
-        adapter.longClicked = false;
-        List<String> exts = new ArrayList<>();
-        max = adapter.getSelectedCount();
-        init = 0;
-        FileDialog dialog = new FileDialog(() -> {
-            Toast.makeText(getContext(), "you clicked cancel", Toast.LENGTH_SHORT).show();
-        }, "Hide", "0/" + max, max);
-        dialog.show(getParentFragmentManager(), "personal photos hide");
+        if (adapter.getSelectedCount() <= 0)
+            back();
+        else {
+            adapter.longClicked = false;
+            List<String> exts = new ArrayList<>();
+            max = adapter.getSelectedCount();
+            init = 0;
+            FileDialog dialog = new FileDialog(() -> {
+                Toast.makeText(getContext(), "you clicked cancel", Toast.LENGTH_SHORT).show();
+            }, "Hide", "0/" + max, max);
+            dialog.show(getParentFragmentManager(), "personal photos hide");
 
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
 
-                if (adapter != null) {
-                    for (PersonalFileItem item : adapter.mData) {
-                        if (item.isChecked()) {
-                            copyVideos(item);
-                            exts.add(item.getItemExt());
-                            if (getActivity() != null) {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        init++;
-                                        dialog.setProgress(init);
-                                        dialog.setNumber(init);
-                                    }
-                                });
+                    if (adapter != null) {
+                        for (PersonalFileItem item : adapter.mData) {
+                            if (item.isChecked()) {
+                                copyVideos(item);
+                                exts.add(item.getItemExt());
+                                if (getActivity() != null) {
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            init++;
+                                            dialog.setProgress(init);
+                                            dialog.setNumber(init);
+                                        }
+                                    });
+                                }
                             }
                         }
+
                     }
 
+                    showRecycler();
+
+                    dialog.dismiss();
+                    String pathname = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.CALENDAR_DIR;
+
+                    String[] myArray = new String[exts.size()];
+                    exts.toArray(myArray);
+
+                    MediaScannerConnection.scanFile(getContext(), new String[]{pathname}, myArray, (path, uri) -> {
+                        Toast.makeText(getContext(), "you are doing great", Toast.LENGTH_SHORT).show();
+                    });
+
+                    changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
+
                 }
-
-                showRecycler();
-
-                dialog.dismiss();
-                String pathname = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.CALENDAR_DIR;
-
-                String[] myArray = new String[exts.size()];
-                exts.toArray(myArray);
-
-                MediaScannerConnection.scanFile(getContext(), new String[]{pathname}, myArray, (path, uri) -> {
-                    Toast.makeText(getContext(), "you are doing great", Toast.LENGTH_SHORT).show();
-                });
-
-                changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
-
-            }
-        }.start();
-
+            }.start();
+        }
     }
 
     private void copyVideos(PersonalFileItem item) {

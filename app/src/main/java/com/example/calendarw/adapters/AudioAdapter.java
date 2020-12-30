@@ -56,17 +56,18 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private ConstraintLayout layout;
         private TextView name, singer;
         private CheckBox checkBox;
+        private View view_item;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            layout = itemView.findViewById(R.id.audio_item_layout);
             name = itemView.findViewById(R.id.audio_name);
             singer = itemView.findViewById(R.id.audio_singer);
             checkBox = itemView.findViewById(R.id.check_box);
+            view_item = itemView.findViewById(R.id.view_item);
+            name.setSelected(true);
 
             if (holderConstants == HolderConstants.H_Audio) {
                 checkBox.setVisibility(View.INVISIBLE);
@@ -74,14 +75,14 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.MyViewHolder
                 if (longClicked)
                     checkBox.setVisibility(View.VISIBLE);
 
-                layout.setOnLongClickListener(v -> {
+                view_item.setOnLongClickListener(v -> {
                     longClicked = true;
                     selectItem();
-                    mListener.onItemClick(getAdapterPosition());
+                    mListener.onItemClick();
                     return false;
                 });
 
-                layout.setOnClickListener(v -> {
+                view_item.setOnClickListener(v -> {
                     if (longClicked)
                         selectItem();
                 });
@@ -93,7 +94,7 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.MyViewHolder
 
                 checkBox.setVisibility(View.VISIBLE);
 
-                layout.setOnClickListener(v -> {
+                view_item.setOnClickListener(v -> {
                     selectItem();
                 });
 
@@ -127,7 +128,7 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.MyViewHolder
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick();
     }
 
     public enum HolderConstants {

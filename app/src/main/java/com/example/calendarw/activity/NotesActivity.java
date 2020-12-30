@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -32,6 +33,10 @@ public class NotesActivity extends AppCompatActivity {
         tb_txt.setText(getResources().getString(R.string.Notes));
         tb_back.setOnClickListener(v -> {
             this.finish();
+        });
+
+        findViewById(R.id.btn_sw).setOnClickListener(v -> {
+            startActivity(new Intent(this,AddNoteActivity.class));
         });
     }
 }

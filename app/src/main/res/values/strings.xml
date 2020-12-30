@@ -61,5 +61,10 @@
     <string name="HideAudio">Hide Audio</string>
     <string name="select_audio">Select Audio</string>
     <string name="tv_no_audio">you don\'t have any audio!</string>
+    <string name="sample">Lorem ipsum dolor sit amet, conse adi pis cing elit. Mi quis hac is very much hight cover.</string>
+    <string name="tv_no_notes">no notes were added</string>
+    <string name="subjecthint">Type here your note....</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
 
 </resources>

@@ -158,9 +158,9 @@ public class PersonalAudioActivity extends AppCompatActivity {
 
         for (int i = 0; i < count; i++) {
             cursor.moveToPosition(i);
-            int dataColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-            int nameColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME);
-            int artistColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.ARTIST);
+            int dataColumnIndex = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+            int nameColumnIndex = cursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME);
+            int artistColumnIndex = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
 
             //Store the path of the image
             String pathName = cursor.getString(dataColumnIndex).substring(cursor.getString(dataColumnIndex).lastIndexOf("/") + 1);
@@ -247,6 +247,16 @@ public class PersonalAudioActivity extends AppCompatActivity {
         // delete the image
         ContentResolver contentResolver = getContentResolver();
             contentResolver.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, MediaStore.Audio.AudioColumns.DATA + "=?", new String[]{item.getItemPathOld()});
+
+
+        File fdelete = new File(item.getItemPathOld());
+        if (fdelete.exists()) {
+            if (fdelete.delete()) {
+                System.out.println("file Deleted ");
+            } else {
+                System.out.println("file not Deleted ");
+            }
+        }
 
         // save item to db
         personalPhotosDao.addItem(item);

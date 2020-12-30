@@ -17,7 +17,6 @@ import com.example.calendarw.utils.SharedPreferencesHelper;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private PasswordDialog passwordDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

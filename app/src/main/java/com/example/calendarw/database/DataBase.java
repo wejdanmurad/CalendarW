@@ -6,11 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.calendarw.items.NoteItem;
 import com.example.calendarw.items.PersonalFileItem;
 
-@Database(entities = {PersonalFileItem.class}, version = 1, exportSchema = false)
+@Database(entities = {PersonalFileItem.class, NoteItem.class}, version = 1, exportSchema = false)
 public abstract class DataBase extends RoomDatabase {
-    private static final String DATABASE_NAME = "Calender";
+    private static final String DATABASE_NAME = "Calender_db1";
     private static DataBase sInstance;
 
     public static DataBase getInstance(Context context) {
@@ -25,5 +26,6 @@ public abstract class DataBase extends RoomDatabase {
     }
 
     public abstract PersonalFilesDao personalFilesDao();
+    public abstract NoteDao noteDao();
 
 }

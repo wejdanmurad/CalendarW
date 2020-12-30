@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -70,7 +71,46 @@ public class TrialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trial);
 
-        getPhotos();
+
+        String[] projection = new String[]{BaseColumns._ID, MediaStore.MediaColumns.DATA};
+        int id = 0;
+        String selection = BaseColumns._ID + " IN (" + id + ")";
+
+        try {
+            final Cursor cursor = getContentResolver().query(
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
+
+            if (cursor != null) {
+
+// remove from the media database
+
+                getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, selection, null);
+
+// remove from storage / sdcard
+
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    final String name = cursor.getString(1);
+                    try {
+                        final File f = new File(name);
+                        if (!f.delete()) {
+                            Log.e("TAG", "deleteSong: can't be deleted");
+                        }
+                        cursor.moveToNext();
+                    } catch (@NonNull final SecurityException ex) {
+                        cursor.moveToNext();
+                    } catch (NullPointerException e) {
+                        Log.e("TAG", "Failed to find file " + name);
+                    }
+                }
+                cursor.close();
+            }
+            getContentResolver().notifyChange(Uri.parse("content://media"), null);
+
+            Toast.makeText(this, " deleted", Toast.LENGTH_SHORT).show();
+
+        } catch (SecurityException ignored) {
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -80,7 +120,7 @@ public class TrialActivity extends AppCompatActivity {
 
         Cursor cursor;
 
-        final String[] columns = {MediaStore.Audio.Media.DATA, MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DISPLAY_NAME , MediaStore.Audio.Media.ARTIST};
+        final String[] columns = {MediaStore.Audio.Media.DATA, MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DISPLAY_NAME, MediaStore.Audio.Media.ARTIST};
         final String orderBy = MediaStore.Audio.Media._ID;
 
         //Stores all the images from the gallery in Cursor

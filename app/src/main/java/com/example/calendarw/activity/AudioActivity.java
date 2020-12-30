@@ -61,6 +61,12 @@ public class AudioActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        showRecycler();
+    }
+
     private void init() {
         btn = findViewById(R.id.btn_audio);
         recyclerView = findViewById(R.id.audioRecycler);
@@ -76,10 +82,8 @@ public class AudioActivity extends AppCompatActivity {
     private void general() {
         filesDao = DataBase.getInstance(this).personalFilesDao();
 
-        adapter.setOnItemClickListener(position -> {
-            editPhotos();
-            changeBtn(false, R.drawable.bg_radius_color, R.string.unhide);
-        });
+//        adapter.setOnItemClickListener(this::editPhotos);
+        adapter.setOnItemClickListener(this::editPhotos);
         if (adapter.mData.isEmpty())
             progressBar.setVisibility(View.VISIBLE);
         else
@@ -109,57 +113,60 @@ public class AudioActivity extends AppCompatActivity {
     }
 
     public void unHidePhotos() {
-        adapter.longClicked = false;
-        List<String> exts = new ArrayList<>();
-        max = adapter.getSelectedCount();
-        init = 0;
-        FileDialog dialog = new FileDialog(() -> {
-            Toast.makeText(this, "you clicked cancel", Toast.LENGTH_SHORT).show();
-        }, "Hide", "0/" + max, max);
-        dialog.show(getSupportFragmentManager(), "personal photos hide");
+        if (adapter.getSelectedCount() <= 0)
+            back();
+        else {
+            adapter.longClicked = false;
+            List<String> exts = new ArrayList<>();
+            max = adapter.getSelectedCount();
+            init = 0;
+            FileDialog dialog = new FileDialog(() -> {
+                Toast.makeText(this, "you clicked cancel", Toast.LENGTH_SHORT).show();
+            }, "Hide", "0/" + max, max);
+            dialog.show(getSupportFragmentManager(), "personal photos hide");
 
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
 
-                if (adapter != null) {
-                    for (PersonalFileItem item : adapter.mData) {
-                        if (item.isChecked()) {
-                            copyPhotos(item);
-                            exts.add(item.getItemExt());
-                            if (this != null) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        init++;
-                                        dialog.setProgress(init);
-                                        dialog.setNumber(init);
-                                    }
-                                });
+                    if (adapter != null) {
+                        for (PersonalFileItem item : adapter.mData) {
+                            if (item.isChecked()) {
+                                copyPhotos(item);
+                                exts.add(item.getItemExt());
+                                if (this != null) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            init++;
+                                            dialog.setProgress(init);
+                                            dialog.setNumber(init);
+                                        }
+                                    });
+                                }
                             }
                         }
+
                     }
 
+                    showRecycler();
+
+                    dialog.dismiss();
+                    String pathname = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.CALENDAR_DIR;
+
+                    String[] myArray = new String[exts.size()];
+                    exts.toArray(myArray);
+
+                    MediaScannerConnection.scanFile(AudioActivity.this, new String[]{pathname}, myArray, (path, uri) -> {
+                        Toast.makeText(AudioActivity.this, "you are doing great", Toast.LENGTH_SHORT).show();
+                    });
+
+                    changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
+
                 }
-
-                showRecycler();
-
-                dialog.dismiss();
-                String pathname = Environment.getExternalStorageDirectory().toString() + "/" + AppConstants.CALENDAR_DIR;
-
-                String[] myArray = new String[exts.size()];
-                exts.toArray(myArray);
-
-                MediaScannerConnection.scanFile(AudioActivity.this, new String[]{pathname}, myArray, (path, uri) -> {
-                    Toast.makeText(AudioActivity.this, "you are doing great", Toast.LENGTH_SHORT).show();
-                });
-
-                changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
-
-            }
-        }.start();
-
+            }.start();
+        }
     }
 
     private void copyPhotos(PersonalFileItem item) {

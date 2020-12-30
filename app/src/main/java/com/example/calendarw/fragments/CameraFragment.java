@@ -64,8 +64,8 @@ public class CameraFragment extends Fragment {
     CameraView mCameraView;
 
     private int REQUEST_CODE_PERMISSIONS = 1001;
-    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA",
-            "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.RECORD_AUDIO"};
+//    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA",
+//            "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.RECORD_AUDIO"};
 
     public static OnItemClickListener mListener;
     private boolean isPhoto = true;
@@ -75,12 +75,12 @@ public class CameraFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (allPermissionsGranted()) {
+//        if (allPermissionsGranted()) {
             startCamera();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS,
-                    REQUEST_CODE_PERMISSIONS);
-        }
+//        } else {
+//            ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS,
+//                    REQUEST_CODE_PERMISSIONS);
+//        }
 
         personalPhotosDao = DataBase.getInstance(getActivity()).personalFilesDao();
     }
@@ -307,42 +307,42 @@ public class CameraFragment extends Fragment {
     }
 
 
-    public boolean allPermissionsGranted() {
-        for (String permission : REQUIRED_PERMISSIONS) {
-            if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
-    }
+//    public boolean allPermissionsGranted() {
+//        for (String permission : REQUIRED_PERMISSIONS) {
+//            if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//
+//        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+//            if (allPermissionsGranted()) {
+//                startCamera();
+//            } else {
+//                Toast.makeText(getActivity(), "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+////                this.finish();
+//            }
+//        }
+//    }
 
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
-                startCamera();
-            } else {
-                Toast.makeText(getActivity(), "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
-//                this.finish();
-            }
-        }
-    }
 
-
-    public String getBatchDirectoryName() {
-        String app_folder_path;
-        if (android.os.Build.VERSION.SDK_INT >= 29) {
-            app_folder_path = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
-        } else {
-            app_folder_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/Camera";
-        }
-
-        File dir = new File(app_folder_path);
-        if (!dir.exists() && !dir.mkdirs()) {
-        }
-        return app_folder_path;
-    }
+//    public String getBatchDirectoryName() {
+//        String app_folder_path;
+//        if (android.os.Build.VERSION.SDK_INT >= 29) {
+//            app_folder_path = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
+//        } else {
+//            app_folder_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/Camera";
+//        }
+//
+//        File dir = new File(app_folder_path);
+//        if (!dir.exists() && !dir.mkdirs()) {
+//        }
+//        return app_folder_path;
+//    }
 
 
     private void galleryAddPic(File originalFile, int mediaType) {
