@@ -30,8 +30,8 @@
         tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/moreFragment"
-        android:name="com.example.calendarw.fragments.MoreFragment"
-        android:label="fragment_more"
-        tools:layout="@layout/fragment_more" />
+        android:id="@+id/audioFragment"
+        android:name="com.example.calendarw.fragments.AudioFragment"
+        android:label="fragment_audio"
+        tools:layout="@layout/fragment_audio" />
 </navigation>

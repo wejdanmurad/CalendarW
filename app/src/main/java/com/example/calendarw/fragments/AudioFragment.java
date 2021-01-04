@@ -1,22 +1,28 @@
-package com.example.calendarw.activity;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.Group;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.calendarw.fragments;
 
 import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.Group;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.calendarw.R;
+import com.example.calendarw.activity.HomeActivity;
+import com.example.calendarw.activity.PersonalAudioActivity;
 import com.example.calendarw.adapters.AudioAdapter;
 import com.example.calendarw.database.DataBase;
 import com.example.calendarw.database.PersonalFilesDao;
@@ -33,7 +39,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AudioActivity extends AppCompatActivity {
+public class AudioFragment extends Fragment {
 
     private RecyclerView recyclerView;
     public final AudioAdapter adapter = new AudioAdapter(AudioAdapter.HolderConstants.H_Audio);
@@ -43,21 +49,66 @@ public class AudioActivity extends AppCompatActivity {
 
     private int max = 0;
     private int init = 0;
-    private boolean isEditing = false;
+    public static boolean isEditing = false;
 
     private ImageButton tb_edit;
     private Button btn;
     private boolean isHide = true;
+//    private ImageButton download, file_manager, breaking_alert, notes, app_lock;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_audio);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_audio, container, false);
 
-        init();
+        btn = view.findViewById(R.id.btn_audio);
+        recyclerView = view.findViewById(R.id.audioRecycler);
+        progressBar = view.findViewById(R.id.progress);
+        group = view.findViewById(R.id.group_empty_audio);
+        tb_edit = view.findViewById(R.id.tb_edit);
+
+        progressBar.setVisibility(View.INVISIBLE);
+        group.setVisibility(View.INVISIBLE);
+
+/*
+        download = view.findViewById(R.id.download);
+        file_manager = view.findViewById(R.id.file_manager);
+        breaking_alert = view.findViewById(R.id.breaking_alert);
+        notes = view.findViewById(R.id.notes);
+        app_lock = view.findViewById(R.id.app_lock);
+
+ */
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         general();
 
+/*
+        download.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), DownloadActivity.class));
+        });
+
+        file_manager.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), FileManagerActivity.class));
+        });
+
+        breaking_alert.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), BreakingAlertActivity.class));
+        });
+
+        notes.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), NotesActivity.class));
+        });
+        app_lock.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), AppLockActivity.class));
+        });
+
+ */
     }
 
     @Override
@@ -66,20 +117,8 @@ public class AudioActivity extends AppCompatActivity {
         showRecycler();
     }
 
-    private void init() {
-        btn = findViewById(R.id.btn_audio);
-        recyclerView = findViewById(R.id.audioRecycler);
-        progressBar = findViewById(R.id.progress);
-        group = findViewById(R.id.group_empty_audio);
-        tb_edit = findViewById(R.id.tb_edit);
-
-        progressBar.setVisibility(View.INVISIBLE);
-        group.setVisibility(View.INVISIBLE);
-
-    }
-
     private void general() {
-        filesDao = DataBase.getInstance(this).personalFilesDao();
+        filesDao = DataBase.getInstance(getContext()).personalFilesDao();
 
 //        adapter.setOnItemClickListener(this::editPhotos);
         adapter.setOnItemClickListener(this::editPhotos);
@@ -100,9 +139,14 @@ public class AudioActivity extends AppCompatActivity {
             }
         });
 
+        HomeActivity.setOnItemClickListener(position -> {
+            if (position == 3)
+                back();
+        });
+
         btn.setOnClickListener(v -> {
             if (isHide) {
-                Intent intent = new Intent(this, PersonalAudioActivity.class);
+                Intent intent = new Intent(getActivity(), PersonalAudioActivity.class);
                 intent.putExtra("isPhotoFile", true);
                 startActivity(intent);
             } else {
@@ -120,9 +164,9 @@ public class AudioActivity extends AppCompatActivity {
             max = adapter.getSelectedCount();
             init = 0;
             FileDialog dialog = new FileDialog(() -> {
-                Toast.makeText(this, "you clicked cancel", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "you clicked cancel", Toast.LENGTH_SHORT).show();
             }, "Hide", "0/" + max, max);
-            dialog.show(getSupportFragmentManager(), "personal photos hide");
+            dialog.show(getChildFragmentManager(), "personal photos hide");
 
             new Thread() {
                 @Override
@@ -134,8 +178,8 @@ public class AudioActivity extends AppCompatActivity {
                             if (item.isChecked()) {
                                 copyPhotos(item);
                                 exts.add(item.getItemExt());
-                                if (this != null) {
-                                    runOnUiThread(new Runnable() {
+                                if (getActivity() != null) {
+                                    getActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             init++;
@@ -157,8 +201,8 @@ public class AudioActivity extends AppCompatActivity {
                     String[] myArray = new String[exts.size()];
                     exts.toArray(myArray);
 
-                    MediaScannerConnection.scanFile(AudioActivity.this, new String[]{pathname}, myArray, (path, uri) -> {
-                        Toast.makeText(AudioActivity.this, "you are doing great", Toast.LENGTH_SHORT).show();
+                    MediaScannerConnection.scanFile(getActivity(), new String[]{pathname}, myArray, (path, uri) -> {
+                        Toast.makeText(getActivity(), "you are doing great", Toast.LENGTH_SHORT).show();
                     });
 
                     changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
@@ -231,8 +275,8 @@ public class AudioActivity extends AppCompatActivity {
                 final List<PersonalFileItem> li = getPhotos();
                 try {
 
-                    if (this != null) {
-                        runOnUiThread(new Runnable() {
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 adapter.mData = li;
@@ -254,7 +298,7 @@ public class AudioActivity extends AppCompatActivity {
 
     private void setRecyclerLM() {
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     }
 
     private List<PersonalFileItem> getPhotos() {
@@ -275,11 +319,4 @@ public class AudioActivity extends AppCompatActivity {
         return photoItems;
     }
 
-    @Override
-    public void onBackPressed() {
-        if (isEditing)
-            back();
-        else
-            super.onBackPressed();
-    }
 }

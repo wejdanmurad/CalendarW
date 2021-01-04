@@ -183,6 +183,7 @@ public class CameraFragment extends Fragment {
 
     } //start camera end
 
+
     private void select(Button btn1, Button btn2) {
         btn1.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.color_200, getResources().newTheme())));
         btn1.setTextColor(getResources().getColor(R.color.color_200, getResources().newTheme()));

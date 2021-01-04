@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.calendarw.fragments.AudioFragment;
 import com.example.calendarw.fragments.CameraFragment;
 import com.example.calendarw.fragments.PhotosFragment;
 import com.example.calendarw.fragments.VideosFragment;
@@ -30,8 +31,10 @@ public class HomeActivity extends AppCompatActivity {
     NavHostFragment navHostFragment;
     private boolean isPhotoFragment = true;
     private boolean isVideoFragment = false;
+    private int tabIndex = R.id.photosFragment;
 
     public static OnItemClickListener mListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +67,12 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case 3:
                         navController.popBackStack();
-                        navController.navigate(R.id.settingsFragment);
+                        navController.navigate(R.id.audioFragment);
                         tabLayout.setVisibility(View.VISIBLE);
                         break;
                     case 4:
                         navController.popBackStack();
-                        navController.navigate(R.id.moreFragment);
+                        navController.navigate(R.id.settingsFragment);
                         tabLayout.setVisibility(View.VISIBLE);
                         break;
                 }
@@ -92,15 +95,18 @@ public class HomeActivity extends AppCompatActivity {
 
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.photosFragment) {
-                isPhotoFragment = true;
-                isVideoFragment = false;
-            } else if (destination.getId() == R.id.videosFragment) {
-                isPhotoFragment = false;
-                isVideoFragment = true;
-            } else {
-                isPhotoFragment = false;
-                isVideoFragment = false;
+            switch (destination.getId()) {
+                case R.id.photosFragment:
+                    tabIndex = R.id.photosFragment;
+//                isPhotoFragment = true;
+//                isVideoFragment = false;
+                    break;
+                case R.id.videosFragment:
+                    tabIndex = R.id.videosFragment;
+                    break;
+                case R.id.audioFragment:
+                    tabIndex = R.id.audioFragment;
+                    break;
             }
 
 
@@ -201,19 +207,44 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (isPhotoFragment) {
-            Log.d("isediting", "onBackPressed: " + PhotosFragment.isEditing);
-            if (PhotosFragment.isEditing) {
-                mListener.onItemClick(1);
-            } else {
-                super.onBackPressed();
-            }
-
-        } else if (isVideoFragment && VideosFragment.isEditing)
-            mListener.onItemClick(2);
-        else {
-            goBack();
+        switch (tabIndex){
+            case R.id.photosFragment:
+                if (PhotosFragment.isEditing) {
+                    mListener.onItemClick(1);
+                } else {
+                    super.onBackPressed();
+                }
+                break;
+            case R.id.videosFragment:
+                if (VideosFragment.isEditing) {
+                    mListener.onItemClick(2);
+                } else {
+                    goBack();
+                }
+                break;
+            case R.id.audioFragment:
+                if (AudioFragment.isEditing) {
+                    mListener.onItemClick(3);
+                } else {
+                    goBack();
+                }
+                break;
+            default:
+                goBack();
         }
+//        if (isPhotoFragment) {
+//            Log.d("isediting", "onBackPressed: " + PhotosFragment.isEditing);
+//            if (PhotosFragment.isEditing) {
+//                mListener.onItemClick(1);
+//            } else {
+//                super.onBackPressed();
+//            }
+//
+//        } else if (isVideoFragment && VideosFragment.isEditing)
+//            mListener.onItemClick(2);
+//        else {
+//            goBack();
+//        }
 
     }
 
