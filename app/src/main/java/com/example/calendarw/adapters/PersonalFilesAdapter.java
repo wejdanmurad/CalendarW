@@ -118,6 +118,7 @@ public class PersonalFilesAdapter extends RecyclerView.Adapter<PersonalFilesAdap
             File imgFile = new File(photoItem.getItemPathOld());
             if (imgFile.exists())
                 Glide.with(context).load(photoItem.getItemPathOld()).into(imageView);
+            imageView.setClipToOutline(true);
             checkBox.setChecked(photoItem.isChecked());
 
         }

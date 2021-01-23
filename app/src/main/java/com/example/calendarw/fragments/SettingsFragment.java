@@ -1,6 +1,5 @@
 package com.example.calendarw.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,11 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.calendarw.R;
-import com.example.calendarw.activity.AppLockActivity;
-import com.example.calendarw.activity.BreakingAlertActivity;
-import com.example.calendarw.activity.DownloadActivity;
-import com.example.calendarw.activity.FileManagerActivity;
-import com.example.calendarw.activity.NotesActivity;
 
 public class SettingsFragment extends Fragment {
 

@@ -21,9 +21,6 @@
         <activity android:name=".activity.AudioActivity" />
         <activity android:name=".activity.AppLockActivity" />
         <activity android:name=".activity.NotesActivity" />
-        <activity android:name=".activity.BreakingAlertActivity" />
-        <activity android:name=".activity.FileManagerActivity" />
-        <activity android:name=".activity.DownloadActivity" />
         <activity android:name=".activity.OnBoardingActivity"></activity>
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
