@@ -3,16 +3,10 @@ package com.example.calendarw.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
-import android.widget.Toast;
 
 import com.example.calendarw.R;
-import com.example.calendarw.dialog.CompleteProfileDialog;
-import com.example.calendarw.dialog.PasswordDialog;
-import com.example.calendarw.utils.AppConstants;
 import com.example.calendarw.utils.SharedPreferencesHelper;
 
 public class SplashActivity extends AppCompatActivity {

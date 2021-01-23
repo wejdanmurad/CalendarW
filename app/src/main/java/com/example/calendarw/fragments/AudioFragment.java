@@ -205,7 +205,10 @@ public class AudioFragment extends Fragment {
                         Toast.makeText(getActivity(), "you are doing great", Toast.LENGTH_SHORT).show();
                     });
 
-                    changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
+                    if (getActivity() != null)
+                        getActivity().runOnUiThread(() -> {
+                            changeBtn(true, R.drawable.bg_radius_red, R.string.HideAudio);
+                        });
 
                 }
             }.start();

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.calendarw.R;
-import com.example.calendarw.dialog.CompleteProfileDialog;
 import com.example.calendarw.dialog.PasswordDialog;
 import com.example.calendarw.utils.AppConstants;
 import com.example.calendarw.utils.SharedPreferencesHelper;

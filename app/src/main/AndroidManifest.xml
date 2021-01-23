@@ -17,11 +17,8 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalendarW">
-        <activity android:name=".activity.AddNoteActivity"></activity>
         <activity android:name=".activity.PersonalAudioActivity" />
         <activity android:name=".activity.AudioActivity" />
-        <activity android:name=".activity.AppLockActivity" />
-        <activity android:name=".activity.NotesActivity" />
         <activity android:name=".activity.OnBoardingActivity"></activity>
         <activity android:name=".activity.SplashActivity">
             <intent-filter>

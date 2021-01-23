@@ -152,7 +152,7 @@ public class PhotosFragment extends Fragment {
     }
 
     public void editPhotos() {
-        changeBtn(false, R.drawable.bg_radius_color, R.string.unhide);
+        changeBtn(false, R.drawable.bg_radius_full_gradient_colored, R.string.unhide);
         isEditing = true;
         refreshRV();
     }
@@ -267,8 +267,10 @@ public class PhotosFragment extends Fragment {
                         Toast.makeText(getContext(), "you are doing great", Toast.LENGTH_SHORT).show();
                     });
 
-                    changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
-
+                    if (getActivity() != null)
+                        getActivity().runOnUiThread(() -> {
+                            changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
+                        });
                 }
             }.start();
         }

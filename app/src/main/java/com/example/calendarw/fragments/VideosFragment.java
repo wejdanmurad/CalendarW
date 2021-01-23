@@ -2,6 +2,8 @@ package com.example.calendarw.fragments;
 
 import android.content.Intent;
 import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -29,6 +31,7 @@ import com.example.calendarw.database.PersonalFilesDao;
 import com.example.calendarw.dialog.FileDialog;
 import com.example.calendarw.items.PersonalFileItem;
 import com.example.calendarw.utils.AppConstants;
+import com.example.calendarw.utils.CalenderApp;
 
 import org.apache.commons.io.FileUtils;
 
@@ -37,6 +40,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class VideosFragment extends Fragment {
@@ -266,11 +270,15 @@ public class VideosFragment extends Fragment {
                     String[] myArray = new String[exts.size()];
                     exts.toArray(myArray);
 
-                    MediaScannerConnection.scanFile(getContext(), new String[]{pathname}, myArray, (path, uri) -> {
+                    MediaScannerConnection.scanFile(getActivity(), new String[]{pathname}, myArray, (path, uri) -> {
                         Toast.makeText(getContext(), "you are doing great", Toast.LENGTH_SHORT).show();
                     });
 
-                    changeBtn(true, R.drawable.bg_radius_red, R.string.HidePhotos);
+                    if (getActivity() != null)
+                        getActivity().runOnUiThread(() -> {
+                            changeBtn(true, R.drawable.bg_radius_red, R.string.HideVideos);
+                        });
+
 
                 }
             }.start();
