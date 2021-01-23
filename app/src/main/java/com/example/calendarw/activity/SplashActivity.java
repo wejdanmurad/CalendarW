@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (SharedPreferencesHelper.isFirstTime(this)) {
+        if (SharedPreferencesHelper.isFirstTime()) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

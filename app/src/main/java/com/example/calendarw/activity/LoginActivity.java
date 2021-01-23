@@ -109,20 +109,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 else if (no_event.equals(tvNoEvent.getText().toString())) {
                     Toast.makeText(this, "you did not enter any number", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (SharedPreferencesHelper.isFirstTime(this)) {
+                    if (SharedPreferencesHelper.isFirstTime()) {
 
 
                         passwordDialog = new PasswordDialog(new PasswordDialog.DialogListener() {
                             @Override
                             public void sure() {
-                                SharedPreferences.Editor firstTime = getSharedPreferences(AppConstants.USER_FIRST_TIME, MODE_PRIVATE).edit();
-                                firstTime.putBoolean(AppConstants.USER_FIRST_TIME, false);
-                                firstTime.apply();
 
-                                SharedPreferences.Editor userPass = getSharedPreferences(AppConstants.USER_PASSWORD, MODE_PRIVATE).edit();
-                                userPass.putString(AppConstants.USER_PASSWORD, tvNoEvent.getText().toString());
-                                userPass.apply();
-                                userPass.commit();
+                                SharedPreferencesHelper.isFirstTime(false);
+                                SharedPreferencesHelper.setUserPassword(tvNoEvent.getText().toString());
 
                                 Toast.makeText(getApplicationContext(), "your password is set!", Toast.LENGTH_SHORT).show();
 
@@ -144,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 //                        showMyDialog();
                     } else {
-                        if (SharedPreferencesHelper.getUserPassword(this).contentEquals(tvNoEvent.getText())) {
+                        if (SharedPreferencesHelper.getUserPassword().contentEquals(tvNoEvent.getText())) {
                             startActivity(new Intent(this, HomeActivity.class));
                             finish();
                         } else
