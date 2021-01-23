@@ -197,9 +197,11 @@ public class PhotosFragment extends Fragment {
         System.out.println("Path: " + path);
         File directory = new File(path);
         if (directory.exists()) {
-            File[] files = directory.listFiles();
+            File[] files =  directory.listFiles();
             System.out.println("Size: " + files.length);
+            Log.d("sw", "getPhotos: ");
             for (int i = 0; i < files.length; i++) {
+                Log.d("sw", "getPhotos: "+files[i].getAbsolutePath());
                 PersonalFileItem personalPhotoItem = filesDao.getItem(files[i].getAbsolutePath());
                 if (personalPhotoItem != null) {
                     photoItems.add(personalPhotoItem);

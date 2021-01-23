@@ -40,16 +40,22 @@
     <string name="toolbar_start">start</string>
     <string name="photos">Photos</string>
     <string name="videos">Videos</string>
-    <string name="settings">Settings</string>
+    <string name="change_Password">change Password</string>
     <string name="Download">Download</string>
     <string name="FileManager">File Manager</string>
     <string name="Breakingalert">Breaking alert</string>
     <string name="Notes">Notes</string>
     <string name="AppLock">App Lock</string>
     <string name="hideme">Hide me</string>
+
+    // setteings
     <string name="ResetPassword">Reset Password</string>
-    <string name="FingerPrint">Finger Print</string>
-    <string name="FacePrint">Face Print</string>
+    <string name="old_pass">Old Password</string>
+    <string name="new_pass">new Password</string>
+    <string name="confirm_pass">Confirm password</string>
+    <string name="shangepassword">change Password</string>
+
+
     <string name="add_link">Click on add icon at the top to search for links.</string>
     <string name="HidePhotos">Hide Photos</string>
     <string name="HideVideos">Hide Videos</string>
@@ -66,5 +72,7 @@
     <string name="subjecthint">Type here your note....</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>
+
+
 
 </resources>

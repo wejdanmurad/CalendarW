@@ -55,8 +55,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.tv_4).setOnClickListener(this);
         findViewById(R.id.tv_5).setOnClickListener(this);
         findViewById(R.id.tv_6).setOnClickListener(this);
-        findViewById(R.id.tv_7).setOnClickListener(this);
         findViewById(R.id.tv_8).setOnClickListener(this);
+        findViewById(R.id.tv_7).setOnClickListener(this);
         findViewById(R.id.tv_9).setOnClickListener(this);
 
         findViewById(R.id.img_del).setOnClickListener(this);
