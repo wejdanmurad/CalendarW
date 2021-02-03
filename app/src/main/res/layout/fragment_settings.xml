@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr">
 
     <FrameLayout
         android:id="@+id/toolbar"
@@ -28,96 +29,66 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:context=".fragments.SettingsFragment">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="@string/ResetPassword"
-            android:textColor="@color/tv_date_gray"
-            android:textSize="18sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="@string/ResetPassword"
+                android:textColor="@color/tv_date_gray"
+                android:textSize="18sp" />
 
 
-        <EditText
-            android:id="@+id/oldpass"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/bg_radius_full_gradient_colored_alpha"
-            android:gravity="center"
-            android:hint="@string/old_pass"
-            android:inputType="numberPassword"
-            android:paddingEnd="8dp"
-            android:textColorHint="@color/black" />
+            <EditText
+                android:id="@+id/oldpass"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_radius_full_gradient_colored_alpha"
+                android:gravity="center"
+                android:hint="@string/old_pass"
+                android:inputType="numberPassword"
+                android:paddingEnd="8dp"
+                android:textColorHint="@color/black" />
 
-        <EditText
-            android:id="@+id/newpass"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/bg_radius_full_gradient_colored_alpha"
-            android:gravity="center"
-            android:hint="@string/new_pass"
-            android:inputType="numberPassword"
-            android:paddingEnd="8dp"
-            android:textColorHint="@color/black" />
+            <EditText
+                android:id="@+id/newpass"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_radius_full_gradient_colored_alpha"
+                android:gravity="center"
+                android:hint="@string/new_pass"
+                android:inputType="numberPassword"
+                android:paddingEnd="8dp"
+                android:textColorHint="@color/black" />
 
-        <EditText
-            android:id="@+id/confirmpass"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/bg_radius_full_gradient_colored_alpha"
-            android:gravity="center"
-            android:hint="@string/confirm_pass"
-            android:inputType="numberPassword"
-            android:paddingEnd="8dp"
-            android:textColorHint="@color/black" />
+            <EditText
+                android:id="@+id/confirmpass"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_radius_full_gradient_colored_alpha"
+                android:gravity="center"
+                android:hint="@string/confirm_pass"
+                android:inputType="numberPassword"
+                android:paddingEnd="8dp"
+                android:textColorHint="@color/black" />
+        </LinearLayout>
+    </ScrollView>
 
-
-        <!--        <androidx.appcompat.widget.AppCompatButton-->
-        <!--            android:id="@+id/btn_finger_print"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="30dp"-->
-        <!--            android:background="@drawable/bg_radius_full_gradient_colored_alpha"-->
-        <!--            android:drawableEnd="@drawable/ic_arrow"-->
-        <!--            android:drawableTint="@color/black"-->
-        <!--            android:fontFamily="@font/poppins"-->
-        <!--            android:gravity="start|center_vertical"-->
-        <!--            android:paddingStart="20dp"-->
-        <!--            android:paddingEnd="20dp"-->
-        <!--            android:text="@string/FingerPrint"-->
-        <!--            android:textAllCaps="false"-->
-        <!--            android:textColor="@color/tv_date_gray"-->
-        <!--            android:textSize="18sp" />-->
-
-        <!--        <androidx.appcompat.widget.AppCompatButton-->
-        <!--            android:id="@+id/btn_face_print"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="15dp"-->
-        <!--            android:background="@drawable/bg_radius_full_gradient_colored_alpha"-->
-        <!--            android:drawableEnd="@drawable/ic_arrow"-->
-        <!--            android:drawableTint="@color/black"-->
-        <!--            android:fontFamily="@font/poppins"-->
-        <!--            android:gravity="start|center_vertical"-->
-        <!--            android:paddingStart="20dp"-->
-        <!--            android:paddingEnd="20dp"-->
-        <!--            android:text="@string/FacePrint"-->
-        <!--            android:textAllCaps="false"-->
-        <!--            android:textColor="@color/tv_date_gray"-->
-        <!--            android:textSize="18sp" />-->
-    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/changePass"
