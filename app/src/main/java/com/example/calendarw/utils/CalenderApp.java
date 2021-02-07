@@ -2,6 +2,8 @@ package com.example.calendarw.utils;
 
 import android.app.Application;
 
+import com.facebook.ads.AudienceNetworkAds;
+
 public class CalenderApp extends Application {
 
     private static CalenderApp sw;
@@ -13,6 +15,7 @@ public class CalenderApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        AudienceNetworkAds.initialize(this);
         sw = this;
     }
 }

@@ -15,17 +15,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.calendarw.R;
 import com.example.calendarw.utils.SharedPreferencesHelper;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 
 public class SettingsFragment extends Fragment {
 
     private EditText oldPass, newPass, confirmPass;
     private Drawable myimage;
     private Button changePass;
-
+    AdView adView;
+    LinearLayout bannerContainer;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +42,7 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-
+        bannerContainer = view.findViewById(R.id.banner_container);
         oldPass = view.findViewById(R.id.oldpass);
         newPass = view.findViewById(R.id.newpass);
         confirmPass = view.findViewById(R.id.confirmpass);
@@ -58,9 +62,12 @@ public class SettingsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
+        //fb ads
+        adView = new AdView(getContext(), getResources().getString(R.string.fb_eg), AdSize.BANNER_HEIGHT_50);
+        bannerContainer.addView(adView);
+        adView.loadAd();
 
-
-        Log.d("TAG", "onActivityCreated: "+ SharedPreferencesHelper.getUserPassword());
+        Log.d("TAG", "onActivityCreated: " + SharedPreferencesHelper.getUserPassword());
 
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +118,7 @@ public class SettingsFragment extends Fragment {
         String mOldpass = oldPass.getText().toString();
         String mNewPass = newPass.getText().toString();
         String nConfirmPass = confirmPass.getText().toString();
-        
+
         if (mOldpass.equals(SharedPreferencesHelper.getUserPassword())) {
 
             if (mNewPass.equals(nConfirmPass)) {

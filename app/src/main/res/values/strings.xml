@@ -73,6 +73,14 @@
     <string name="delete">Delete</string>
     <string name="save">Save</string>
 
+    <!--    google admob-->
+    <string name="ggl_eg">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ggl_banner1">ca-app-pub-1246280412638998/5367892464</string>
+    <string name="ggl_banner2">ca-app-pub-1246280412638998/1745509510</string>
 
+    <!--    fb ads-->
+    <string name="fb_eg">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>
+    <string name="fb_banner1">IMG_16_9_APP_INSTALL#230203078745875_230203782079138</string>
+    <string name="fb_banner2">IMG_16_9_APP_INSTALL#230203078745875_230209728745210</string>
 
 </resources>

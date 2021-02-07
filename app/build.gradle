@@ -69,4 +69,11 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha20"
     // If you want to additionally use the CameraX Extensions library
     implementation "androidx.camera:camera-extensions:1.0.0-alpha20"
+
+
+    //ggl admob
+    implementation 'com.google.android.gms:play-services-ads:19.7.0'
+
+    //fb ads
+    implementation 'com.facebook.android:audience-network-sdk:6.2.1'
 }

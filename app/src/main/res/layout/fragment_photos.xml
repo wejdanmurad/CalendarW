@@ -28,14 +28,14 @@
             android:visibility="visible" />
 
         <ImageButton
-            android:background="@android:color/transparent"
             android:id="@+id/tb_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/todo"
             android:padding="18dp"
-            android:src="@drawable/ic_edit"
-            android:contentDescription="@string/todo" />
+            android:src="@drawable/ic_edit" />
 
     </FrameLayout>
 
@@ -49,15 +49,28 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:context=".fragments.PhotosFragment">
 
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="@string/ggl_eg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/photosRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/adView" />
 
         <ProgressBar
             android:id="@+id/progress"

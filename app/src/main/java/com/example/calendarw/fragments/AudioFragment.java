@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ import com.example.calendarw.database.PersonalFilesDao;
 import com.example.calendarw.dialog.FileDialog;
 import com.example.calendarw.items.PersonalFileItem;
 import com.example.calendarw.utils.AppConstants;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 
 import org.apache.commons.io.FileUtils;
 
@@ -56,12 +59,15 @@ public class AudioFragment extends Fragment {
     private boolean isHide = true;
 //    private ImageButton download, file_manager, breaking_alert, notes, app_lock;
 
+    AdView adView;
+    LinearLayout bannerContainer;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_audio, container, false);
 
+        bannerContainer = view.findViewById(R.id.banner_container);
         btn = view.findViewById(R.id.btn_audio);
         recyclerView = view.findViewById(R.id.audioRecycler);
         progressBar = view.findViewById(R.id.progress);
@@ -85,6 +91,11 @@ public class AudioFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        //fb ads
+        adView = new AdView(getContext(), getResources().getString(R.string.fb_eg), AdSize.BANNER_HEIGHT_50);
+        bannerContainer.addView(adView);
+        adView.loadAd();
 
         general();
 

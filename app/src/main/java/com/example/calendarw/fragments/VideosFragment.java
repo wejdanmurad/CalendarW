@@ -32,6 +32,9 @@ import com.example.calendarw.dialog.FileDialog;
 import com.example.calendarw.items.PersonalFileItem;
 import com.example.calendarw.utils.AppConstants;
 import com.example.calendarw.utils.CalenderApp;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import org.apache.commons.io.FileUtils;
 
@@ -62,6 +65,8 @@ public class VideosFragment extends Fragment {
 
     private Button btn;
     private boolean isHide = true;
+
+    AdView adView;
 
     @Override
     public void onResume() {
@@ -96,7 +101,7 @@ public class VideosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_videos, container, false);
         btn = view.findViewById(R.id.btn_video);
-
+        adView = view.findViewById(R.id.adView);
         recyclerView = view.findViewById(R.id.videosRecycler);
         progressBar = view.findViewById(R.id.progress);
         group = view.findViewById(R.id.group_empty_photo);
@@ -111,6 +116,14 @@ public class VideosFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        MobileAds.initialize(getContext(), initializationStatus -> {
+
+        });
+        AdRequest request = new AdRequest.Builder().build();
+        adView.loadAd(request);
+
+
 
         personalPhotosDao = DataBase.getInstance(getActivity()).personalFilesDao();
 
