@@ -200,7 +200,6 @@ public class PersonalFileActivity extends AppCompatActivity {
                 super.run();
                 final List<PersonalFileItem> li = getPhotos();
                 try {
-
                     if (this != null) {
                         runOnUiThread(new Runnable() {
                             @Override
