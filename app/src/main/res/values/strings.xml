@@ -1,31 +1,31 @@
 <resources>
-    <string name="app_name">Calendar W</string>
+    <string name="app_name">Calendar</string>
     <string name="sun">SUN</string>
     <string name="mon">MON</string>
     <string name="tue">TUE</string>
     <string name="wed">WED</string>
     <string name="thu">THU</string>
     <string name="fri">FRI</string>
-    <string name="date">2020 Dec</string>
-    <string name="todo">TODO</string>
+    <string name="date">2021 Dec</string>
+    <string name="todo" translatable="false">TODO</string>
     <string name="no_events">No events</string>
-    <string name="extended_fab_label">1</string>
+    <string name="extended_fab_label" translatable="false">1</string>
     <string name="tv_note">only numbers from 1 to 9 are available</string>
     <string name="Videos">Videos</string>
     <string name="Photos">Photos</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="select">select photos</string>
     <string name="cancel">cancel</string>
     <string name="hide">Hide</string>
-    <string name="number">10/23</string>
+    <string name="number" translatable="false">10/23</string>
     <string name="unhide">Unhide</string>
     <string name="no_photos">no photos were added</string>
     <string name="tv_no_pics">you don\'t have any photo!</string>
     <string name="tv_no_vids">you don\'t have any video!</string>
     <string name="no_videos">no videos were added</string>
-    <string name="tv_boarding_top">Lorem Imposed In</string>
-    <string name="tv_boarding_btm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus pulvinar lacus consequat egestas ac pellentesque vitae, nascetur libero.</string>
+    <string name="tv_boarding_top" translatable="false">Lorem Imposed In</string>
+    <string name="tv_boarding_btm" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus pulvinar lacus consequat egestas ac pellentesque vitae, nascetur libero.</string>
     <string name="deleting">Deleting</string>
     <string name="path">Path:</string>
     <string name="name">name:</string>
@@ -43,12 +43,12 @@
     <string name="change_Password">change Password</string>
     <string name="Download">Download</string>
     <string name="FileManager">File Manager</string>
-    <string name="Breakingalert">Breaking alert</string>
-    <string name="Notes">Notes</string>
-    <string name="AppLock">App Lock</string>
-    <string name="hideme">Hide me</string>
+    <string name="Breakingalert" translatable="false">Breaking alert</string>
+    <string name="Notes" translatable="false">Notes</string>
+    <string name="AppLock" translatable="false">App Lock</string>
+    <string name="hideme" translatable="false">Hide me</string>
 
-    // setteings
+<!--    setteings-->
     <string name="ResetPassword">Reset Password</string>
     <string name="old_pass">Old Password</string>
     <string name="new_pass">new Password</string>
@@ -56,7 +56,7 @@
     <string name="shangepassword">change Password</string>
 
 
-    <string name="add_link">Click on add icon at the top to search for links.</string>
+    <string name="add_link" translatable="false">Click on add icon at the top to search for links.</string>
     <string name="HidePhotos">Hide Photos</string>
     <string name="HideVideos">Hide Videos</string>
     <string name="select_photos">Select Photos</string>
@@ -67,20 +67,20 @@
     <string name="HideAudio">Hide Audio</string>
     <string name="select_audio">Select Audio</string>
     <string name="tv_no_audio">you don\'t have any audio!</string>
-    <string name="sample">Lorem ipsum dolor sit amet, conse adi pis cing elit. Mi quis hac is very much hight cover.</string>
-    <string name="tv_no_notes">no notes were added</string>
-    <string name="subjecthint">Type here your note....</string>
+    <string name="sample" translatable="false">Lorem ipsum dolor sit amet, conse adi pis cing elit. Mi quis hac is very much hight cover.</string>
+    <string name="tv_no_notes" translatable="false">no notes were added</string>
+    <string name="subjecthint" translatable="false">Type here your note....</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>
 
     <!--    google admob-->
-    <string name="ggl_eg">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="ggl_banner1">ca-app-pub-1246280412638998/5367892464</string>
-    <string name="ggl_banner2">ca-app-pub-1246280412638998/1745509510</string>
+    <string name="ggl_eg" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ggl_banner1" translatable="false">ca-app-pub-1246280412638998/5367892464</string>
+    <string name="ggl_banner2" translatable="false">ca-app-pub-1246280412638998/1745509510</string>
 
     <!--    fb ads-->
-    <string name="fb_eg">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>
-    <string name="fb_banner1">IMG_16_9_APP_INSTALL#230203078745875_230203782079138</string>
-    <string name="fb_banner2">IMG_16_9_APP_INSTALL#230203078745875_230209728745210</string>
+    <string name="fb_eg" translatable="false">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>
+    <string name="fb_banner1" translatable="false">IMG_16_9_APP_INSTALL#230203078745875_230203782079138</string>
+    <string name="fb_banner2" translatable="false">IMG_16_9_APP_INSTALL#230203078745875_230209728745210</string>
 
 </resources>

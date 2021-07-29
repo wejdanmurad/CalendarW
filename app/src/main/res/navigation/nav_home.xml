@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/photosFragment"
-        android:name="com.example.calendarw.fragments.PhotosFragment"
+        android:name="com.sw.calendarw.fragments.PhotosFragment"
         android:label="fragment_photos"
         tools:layout="@layout/fragment_photos" />
 
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.example.calendarw.fragments.CameraFragment"
+        android:name="com.sw.calendarw.fragments.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" />
 
     <fragment
         android:id="@+id/videosFragment"
-        android:name="com.example.calendarw.fragments.VideosFragment"
+        android:name="com.sw.calendarw.fragments.VideosFragment"
         android:label="fragment_videos"
         tools:layout="@layout/fragment_videos" />
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.calendarw.fragments.SettingsFragment"
+        android:name="com.sw.calendarw.fragments.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/audioFragment"
-        android:name="com.example.calendarw.fragments.AudioFragment"
+        android:name="com.sw.calendarw.fragments.AudioFragment"
         android:label="fragment_audio"
         tools:layout="@layout/fragment_audio" />
 </navigation>

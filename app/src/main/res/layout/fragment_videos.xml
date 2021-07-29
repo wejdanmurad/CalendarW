@@ -22,7 +22,7 @@
             android:layout_gravity="start|center_vertical"
             android:layout_margin="18dp"
             android:fontFamily="@font/poppins"
-            android:text="@string/photos"
+            android:text="@string/videos"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:visibility="visible" />
@@ -56,7 +56,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             app:adSize="BANNER"
-            app:adUnitId="@string/ggl_eg"
+            app:adUnitId="@string/ggl_banner2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
