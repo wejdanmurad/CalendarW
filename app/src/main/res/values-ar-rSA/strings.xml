@@ -54,4 +54,6 @@
     <string name="tv_no_audio">لا يوجد لديك أي ملف صوتي!</string>
     <string name="delete">حذف</string>
     <string name="save">حفظ</string>
+    <string name="tv_boarding_top" >التقويم</string>
+    <string name="tv_boarding_btm" >حيث يمكنك اخفاء ملفاتك بأمان</string>
 </resources>

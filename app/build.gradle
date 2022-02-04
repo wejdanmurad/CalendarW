@@ -4,7 +4,6 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.sw.calendarw"
@@ -42,7 +41,7 @@ dependencies {
     implementation 'androidx.documentfile:documentfile:1.0.1'
     implementation 'androidx.room:room-runtime:2.2.5'
     // file utils
-    compile 'org.apache.commons:commons-io:1.3.2'
+    implementation 'org.apache.commons:commons-io:1.3.2'
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
